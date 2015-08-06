@@ -11,5 +11,11 @@ angular
             templateUrl: 'partials/home.html',
             controller: 'HomeController',
             controllerAs: 'homeCtrl'
+        })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'partials/login.html',
+            controller: 'LoginController',
+            controllerAs: 'loginCtrl'
         });
 });
