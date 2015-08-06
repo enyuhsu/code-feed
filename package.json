@@ -1,0 +1,27 @@
+{
+  "name": "code-feed",
+  "version": "1.0.0",
+  "description": "Team CodeFeed: Arash Dai, Ken Kaiser, Allen Mackey, Ben Tan",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiserken/code-feed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaiserken/code-feed/issues"
+  },
+  "homepage": "https://github.com/kaiserken/code-feed#readme"
+}
