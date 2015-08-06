@@ -31,19 +31,25 @@ window.fbAsyncInit = function() {
       xfbml      : true,
       version    : 'v2.4'
     });
+    console.log("init js sdk");
+    
+    FB.getLoginStatus(function(response){
+    	statusChangeCallback(response);
+    });
   };
 
 //now that it's init'd, we call FB.getLoginStatus()
 
-FB.getLoginStatus(function(response){
-	statusChangeCallback(response);
-});
+// FB.getLoginStatus(function(response){
+// 	statusChangeCallback(response);
+// });
 
 //Load SDK asynchronously
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
    if (d.getElementById(id)) {return;}
    js = d.createElement(s); js.id = id;
+   //connects to the SDK
    js.src = "//connect.facebook.net/en_US/sdk.js";
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));

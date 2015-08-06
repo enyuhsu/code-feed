@@ -4,5 +4,4 @@ angular
     HomeController.$inject =  ['$http'];
 
     function HomeController($http) {
-      
     }

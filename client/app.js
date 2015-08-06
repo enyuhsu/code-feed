@@ -12,8 +12,8 @@ angular
             controller: 'HomeController',
             controllerAs: 'homeCtrl'
         })
-        .state('login', {
-            url: '/login',
+        .state('oauth', {
+            url: '/oauth',
             templateUrl: 'partials/login.html',
             controller: 'LoginController',
             controllerAs: 'loginCtrl'
