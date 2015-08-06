@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+          <!-- CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+          <!-- JAVASCRIPTS -->
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/ui-router/release/angular-ui-router.js"></script>
+  
+  
+
+  <script src="app.js"></script>
+        <!-- CONTROLLERS -->
+
+  <script type="text/javascript" src="js/controllers/home.ctrl.js"></script>
+
+
+  <title>Snappy</title>
+</head>
+<body ng-app = 'app' >
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="home">Home</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+<ui-view>
+</body>
+
+
+</html>
