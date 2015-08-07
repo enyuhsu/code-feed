@@ -9,7 +9,7 @@ var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize('postgres://localhost/codefeed');
 
-var User = sequelize.define('user', {
+var User = sequelize.define('users', {
 	username: {
 		type: Sequelize.STRING,
 		field: 'username'
@@ -52,11 +52,12 @@ User.hasMany(Post, {as: 'posts'});
 
 
 
-Post.sync({force:true}).then(function(){
-	return Post.create({
-		title: 'BOBs',
-		url: 'donut.com',
-		posts: "these donut are yummy!"
+User.sync({force:true}).then(function(){
+	return User.create({
+		username: 'BOB',
+		password: 'donut.com',
+		usertoken: 'gfgfutfuf',
+		email: "er@these.com!"
 	});
 });
 
@@ -64,8 +65,10 @@ Post.sync({force:true}).then(function(){
 
 
 
+
 // middleware
 app.use(express.static('client'));
+
 
 
 
