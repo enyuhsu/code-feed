@@ -1,8 +1,21 @@
+<form ng-submit='homeCtrl.submit()'>
+<input type = "text" placeholder="Title" ng-model="homeCtrl.post.title"/><br/>
+<input type="text" placeholder="URL" ng-model="homeCtrl.post.url"/><br/>
+<textarea type="text" placeholder="Post Here" ng-model="homeCtrl.post.posts" rows=8 cols=60></textarea>
 
-<div class="post" ng-repeat="post in homeControl.posts" >
+
+<input type="submit" id="submit" value="Submit" />
+</form>
 
 
 
-<a ng-href="{{post.url}}">{{post.title}}</a>
+<div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
+Title: <a ng-href="{{post.url}}">{{post.title}}</a><br/>
+Post:{{post.posts}}
+
+
+
+ 
 <!--<a  ng-href= link to comments page  > comments </a> -->
 </div>
+

@@ -69,7 +69,20 @@ app.post('/fb_login', function(req,res){
       		usertoken : req.body.usertoken
       	});
 	  });
-});
+};
+
+/*app.post('/signup', function (req, res) {
+  User
+    .create(req.body)
+    .then(function (user){
+      res.json({message: 'Welcome to our site!'});
+    })
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+});*/
 
 app.get('/user/:id', function (req, res) {
   User
@@ -84,7 +97,7 @@ app.get('/user/:id', function (req, res) {
     });
 });
 
-app.post('/login', function (req, res) {
+/*app.post('/login', function (req, res) {
   User.find({username: username})
     .then(function (user) {
       if (!user) {
@@ -94,9 +107,10 @@ app.post('/login', function (req, res) {
         res.json({message: 'Wrong password'});
       }
     });
-});
+});*/
 
 app.post('/post', function (req, res) {
+  console.log(req.body);
   Post
     .create(req.body)
     .catch(function (error) {
@@ -119,10 +133,6 @@ app.get('/post:id', function (req, res) {
     });
 });
 
-
-// middleware
-app.use(express.static('client'));
-
 app.get('/posts', function (req, res) {
   Post
     .findAll()
@@ -144,5 +154,6 @@ app.get('/fb_users', function (req, res) {
       res.send(error);
     });
 });
+
 
 app.listen(3000);

@@ -8,13 +8,13 @@ $stateProvider
         url: '/home',
         templateUrl: 'partials/home.html',
         controller: 'HomeController',
-        controllerAs: 'homeControl'
+        controllerAs: 'homeCtrl'
       })
     .state('oauth', {
         url: '/oauth',
         templateUrl: 'partials/login.html',
         controller: 'LoginController',
-        controllerAs: 'loginControl'
+        controllerAs: 'loginCtrl'
       });
 });
 
