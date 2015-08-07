@@ -5,7 +5,11 @@
           <!-- CSS -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+
+
           <!-- JAVASCRIPTS -->
 <!--   // <script src="lib/angular/angular.min.js"></script>
   // <script src="lib/ui-router/release/angular-ui-router.js"></script> -->
@@ -18,9 +22,13 @@
         <!-- CONTROLLERS -->
 
   <script type="text/javascript" src="js/controllers/home.ctrl.js"></script>
-  <script type="text/javascript" src="js/controllers/login.ctrl.js"></script>
 
-  <title>codefeed</title>
+  <!--<script type="text/javascript" src="js/controllers/post.ctrl.js"></script>-->
+<!-- this links the app.js and home controller together^^^^ allowing them ti interact-->
+
+
+  <title>CodeFeed</title>
+
 </head>
 <body ng-app = 'app' >
 <!-- Fixed navbar -->
@@ -32,9 +40,18 @@
         <li><a ui-sref="oauth">Login</a></li>
       </ul>
     </div><!--/.nav-collapse -->
+    
   </div>
+
 </nav>
-<ui-view>
+<h1 style="text-align:center">C0DE/F33D</h1>
+<ui-view> <!--  keep the rest of the page like this and add in the partials here  -->
+
+
+<!-- put the posts here -->
+
+
+
 </body>
 
 

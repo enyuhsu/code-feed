@@ -50,6 +50,7 @@ var Post =  sequelize.define('post',{
 
 
 User.hasMany(Post, {as: 'posts'});
+
 User.sync();
 Post.sync();
 
@@ -106,7 +107,7 @@ app.get('/post:id', function (req, res) {
   Post
     .findById(id)
     .then(function (post) {
-      res.send(post);
+      res.send(req.params.id);
     })
     .catch(function (error) {
       if (error) {
@@ -115,9 +116,9 @@ app.get('/post:id', function (req, res) {
     });
 });
 
+
 // middleware
 app.use(express.static('client'));
-
 
 app.get('/posts', function (req, res) {
   Post
@@ -129,7 +130,6 @@ app.get('/posts', function (req, res) {
       res.send(error);
     });
 });
-
 
 
 app.listen(3000);

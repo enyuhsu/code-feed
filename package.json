@@ -1,6 +1,7 @@
 {
   "name": "code-feed",
   "version": "1.0.0",
+
   "description": "Team CodeFeed: Arash Dai, Ken Kaiser, Allen Mackey, Ben Tan",
   "main": "index.js",
   "dependencies": {
@@ -12,6 +13,7 @@
     "sequelize": "^3.5.1"
   },
   "devDependencies": {},
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/server.js"
