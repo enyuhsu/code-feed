@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
 var Sequelize = require('sequelize');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
 
-
-
-
-
+app.use(express.static('client'));
+app.use(bodyParser.json());
 
 var sequelize = new Sequelize('postgres://localhost/codefeed');
 
@@ -49,6 +49,7 @@ var Post =  sequelize.define('post',{
 });
 
 User.hasMany(Post, {as: 'posts'});
+<<<<<<< HEAD
 
 
 
@@ -59,12 +60,75 @@ User.sync({force:true}).then(function(){
 		usertoken: 'gfgfutfuf',
 		email: "er@these.com!"
 	});
+=======
+User.sync();
+Post.sync();
+
+
+
+app.post('/signup', function (req, res) {
+  User
+    .create(req.body)
+    .then(function (user){
+      res.json({message: 'Welcome to our site!'});
+    })
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+>>>>>>> e589db3c98c22e5e3debe678aa544c88aea0acef
 });
 
+app.get('/user/:id', function (req, res) {
+  User
+    .findById(id)
+    .then(function (user) {
+      res.send(user);
+    })
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+});
 
+app.post('/login', function (req, res) {
+  User.find({username: username})
+    .then(function (user) {
+      if (!user) {
+        res.json({message: 'Nobody here by that name'});
+      }
+      if (user.password !== password) {
+        res.json({message: 'Wrong password'});
+      }
+    });
+});
 
+app.post('/post', function (req, res) {
+  Post
+    .create(req.body)
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+});
 
+app.get('/post:id', function (req, res) {
+  Post
+    .findById(id)
+    .then(function (post) {
+      res.send(post);
+    })
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+});
 
+<<<<<<< HEAD
 
 // middleware
 app.use(express.static('client'));
@@ -72,6 +136,18 @@ app.use(express.static('client'));
 
 
 
+=======
+app.get('/posts', function (req, res) {
+  Post
+    .findAll()
+    .then(function (posts) {
+      res.send(posts);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
+>>>>>>> e589db3c98c22e5e3debe678aa544c88aea0acef
 
 
 
