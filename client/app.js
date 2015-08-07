@@ -14,7 +14,7 @@ $stateProvider
         url: '/oauth',
         templateUrl: 'partials/login.html',
         controller: 'LoginController',
-        controllerAs: 'loginCtrl'
+        controllerAs: 'loginControl'
       });
 });
 

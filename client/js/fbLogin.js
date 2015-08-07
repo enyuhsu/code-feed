@@ -2,7 +2,9 @@
 //this is called with results from FB.getLoginStatus
 function statusChangeCallback(response) {
 	console.log('statusChangeCallback');
+	var access_token = response.authResponse.accessToken;
 	console.log(response);
+	//console.log(access_token);
 
 	if(response.status === 'connected') {
 		//Logged into app and fb

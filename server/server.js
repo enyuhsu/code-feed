@@ -56,16 +56,64 @@ Post.sync();
 
 
 app.post('/signup', function (req, res) {
-  User
-    .create(req.body)
-    .then(function (user){
-      res.json({message: 'Welcome to our site!'});
-    })
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
+	//first check if username exists in database
+	User.find({username: req.body.username})
+    .then(function (user) {
+      if (!user) {
+        User
+          .create(req.body)
+          .then(function (user){
+            res.json({message: 'Welcome to our site!'});
+          })
+          .catch(function (error) {
+            if (error) {
+              res.send(error);
+            }
+          });
+          res.json({message: 'Creating user'});
+      }
+      else { //user exists in database. update access_token
+      	user.updateAttributes({
+      		usertoken : req.body.access_token
+      	});
+      }
+      if (user.password !== password) {
+        res.json({message: 'Wrong password'});
       }
     });
+});
+/*
+app.post('/fb_login', function(req,res){
+	console.log(req.body);
+	User
+	  .create(req.body)
+	  .then(function (user){
+	    res.json({message: 'Welcome to our site!'});
+	  })
+	  .catch(function (error) {
+	    if (error) {
+	      res.send(error);
+	    }
+	  });
+});*/
+
+app.post('/fb_login', function(req,res){
+	console.log(req.body);
+	User
+	  .findOrCreate({
+	  	where : {
+	  		username : req.body.username
+	  	},
+	  	defaults:{
+	  		usertoken : req.body.usertoken
+	  	}
+	  }).spread(function(user,created){
+	  	user.updateAttributes({
+      		usertoken : req.body.usertoken
+      	});
+	  	//console.log(user);
+	  	//console.log("created);
+	  });
 });
 
 app.get('/user/:id', function (req, res) {
@@ -131,5 +179,15 @@ app.get('/posts', function (req, res) {
     });
 });
 
+app.get('/fb_users', function (req, res) {
+  User
+    .findAll()
+    .then(function (users) {
+      res.send(users);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
 
 app.listen(3000);
