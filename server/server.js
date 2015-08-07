@@ -49,18 +49,7 @@ var Post =  sequelize.define('post',{
 });
 
 User.hasMany(Post, {as: 'posts'});
-<<<<<<< HEAD
 
-
-
-User.sync({force:true}).then(function(){
-	return User.create({
-		username: 'BOB',
-		password: 'donut.com',
-		usertoken: 'gfgfutfuf',
-		email: "er@these.com!"
-	});
-=======
 User.sync();
 Post.sync();
 
@@ -77,7 +66,7 @@ app.post('/signup', function (req, res) {
         res.send(error);
       }
     });
->>>>>>> e589db3c98c22e5e3debe678aa544c88aea0acef
+
 });
 
 app.get('/user/:id', function (req, res) {
@@ -106,6 +95,7 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/post', function (req, res) {
+  console.log(req.body);
   Post
     .create(req.body)
     .catch(function (error) {
@@ -115,20 +105,20 @@ app.post('/post', function (req, res) {
     });
 });
 
-app.get('/post:id', function (req, res) {
-  Post
-    .findById(id)
-    .then(function (post) {
-      res.send(post);
-    })
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
-});
+// app.get('/post:id', function (req, res) {
+//   Post
+//     .findById(id)
+//     .then(function (post) {
+//       res.send(post);
+//     })
+//     .catch(function (error) {
+//       if (error) {
+//         res.send(error);
+//       }
+//     });
+// });
 
-<<<<<<< HEAD
+
 
 // middleware
 app.use(express.static('client'));
@@ -136,7 +126,7 @@ app.use(express.static('client'));
 
 
 
-=======
+
 app.get('/posts', function (req, res) {
   Post
     .findAll()
@@ -147,7 +137,7 @@ app.get('/posts', function (req, res) {
       res.send(error);
     });
 });
->>>>>>> e589db3c98c22e5e3debe678aa544c88aea0acef
+
 
 
 

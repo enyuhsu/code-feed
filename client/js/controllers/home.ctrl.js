@@ -3,23 +3,32 @@ angular
     .controller('HomeController', HomeController);
     // this sets the alias for home controller as "HomeController"
     HomeController.$inject =  ['$http'];
+     
+     function HomeController($http) {
+      var self = this;
+      this.post = {};
+      
 
-    function HomeController($http) {
+     
+     this.posted  = [];
 
-      this.posts = [
-      {title:"Title1", url:"http://www.google.com"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"},
-      {title:"Title1", url:"Url1"}]
+      this.submit = function () {
+        console.log("post is running");
+        console.log(this.post);
+
+        $http.post('/post', this.post).success(function(data) {
+          
+        });
+      // this.posted.push(this.post);
+      this.post = {};
+      }
+
+      $http.get('/posts').success(function(data){
+        // console.log(data);
+        // console.log("this", this);
+        // console.log("self", self);
+        self.posted = self.posted.concat(data);
+      });
 
       //allPosts;
       console.log("we are accesing posts properly");
