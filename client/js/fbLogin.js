@@ -32,7 +32,7 @@ window.fbAsyncInit = function() {
       version    : 'v2.4'
     });
     console.log("init js sdk");
-    
+
     FB.getLoginStatus(function(response){
     	statusChangeCallback(response);
     });
@@ -58,6 +58,7 @@ window.fbAsyncInit = function() {
 function testAPI() {
 	console.log('Welcome!');
 	FB.api('/me', function(response){
+		console.log(response);
 		console.log('Successful login for: '+response.name);
 		document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
 	});

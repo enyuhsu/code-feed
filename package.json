@@ -1,8 +1,17 @@
 {
   "name": "code-feed",
   "version": "1.0.0",
-  "description": "A reddit clone dedicated to programmers",
+  "description": "Team CodeFeed: Arash Dai, Ken Kaiser, Allen Mackey, Ben Tan",
   "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "pg": "^4.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.5.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/server.js"
