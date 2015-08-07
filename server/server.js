@@ -48,10 +48,10 @@ var Post =  sequelize.define('post',{
 	freezeTableName: true
 });
 
+
 User.hasMany(Post, {as: 'posts'});
 User.sync();
 Post.sync();
-
 
 
 app.post('/signup', function (req, res) {

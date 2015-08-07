@@ -25,8 +25,5 @@
   "bugs": {
     "url": "https://github.com/Pllx/code-feed/issues"
   },
-  "homepage": "https://github.com/Pllx/code-feed#readme",
-  "dependencies": {
-    "express": "^4.13.3"
-  }
+  "homepage": "https://github.com/Pllx/code-feed#readme"
 }
