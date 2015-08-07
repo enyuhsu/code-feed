@@ -54,49 +54,6 @@ User.hasMany(Post, {as: 'posts'});
 User.sync();
 Post.sync();
 
-
-app.post('/signup', function (req, res) {
-	//first check if username exists in database
-	User.find({username: req.body.username})
-    .then(function (user) {
-      if (!user) {
-        User
-          .create(req.body)
-          .then(function (user){
-            res.json({message: 'Welcome to our site!'});
-          })
-          .catch(function (error) {
-            if (error) {
-              res.send(error);
-            }
-          });
-          res.json({message: 'Creating user'});
-      }
-      else { //user exists in database. update access_token
-      	user.updateAttributes({
-      		usertoken : req.body.access_token
-      	});
-      }
-      if (user.password !== password) {
-        res.json({message: 'Wrong password'});
-      }
-    });
-});
-/*
-app.post('/fb_login', function(req,res){
-	console.log(req.body);
-	User
-	  .create(req.body)
-	  .then(function (user){
-	    res.json({message: 'Welcome to our site!'});
-	  })
-	  .catch(function (error) {
-	    if (error) {
-	      res.send(error);
-	    }
-	  });
-});*/
-
 app.post('/fb_login', function(req,res){
 	console.log(req.body);
 	User
@@ -111,8 +68,6 @@ app.post('/fb_login', function(req,res){
 	  	user.updateAttributes({
       		usertoken : req.body.usertoken
       	});
-	  	//console.log(user);
-	  	//console.log("created);
 	  });
 });
 
