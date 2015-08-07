@@ -105,6 +105,7 @@ app.post('/post', function (req, res) {
     });
 });
 
+
 // app.get('/post:id', function (req, res) {
 //   Post
 //     .findById(id)
@@ -119,9 +120,25 @@ app.post('/post', function (req, res) {
 // });
 
 
+app.get('/post:id', function (req, res) {
+  Post
+    .findById(id)
+    .then(function (post) {
+      res.send(req.params.id);
+    })
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+});
+
+
 
 // middleware
-app.use(express.static('client'));
+
+
+
 
 
 
@@ -137,7 +154,6 @@ app.get('/posts', function (req, res) {
       res.send(error);
     });
 });
-
 
 
 
