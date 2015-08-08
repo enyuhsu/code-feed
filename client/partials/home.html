@@ -8,14 +8,13 @@
 </form>
 
 
-
 <div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
 Title: <a ng-href="{{post.url}}">{{post.title}}</a><br/>
 Post:{{post.posts}}
-
-
 
  
 <!--<a  ng-href= link to comments page  > comments </a> -->
 </div>
 
+<div ng-model = "homeCtrl.counter">{{homeCtrl.counter}}</div>
+<button ng-click = "homeCtrl.upVote()"> upvote</button>
