@@ -2,10 +2,12 @@ var express = require('express');
 var app = express();
 var Sequelize = require('sequelize');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 
 app.use(express.static('client'));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 var sequelize = new Sequelize('postgres://localhost/codefeed');
 
@@ -43,30 +45,36 @@ var Post =  sequelize.define('post',{
 	posts: {
 		type: Sequelize.STRING,
 		field: 'posts'
+	},
+	username: {
+		type : Sequelize.STRING,
+		field: 'username'
 	}
-    },{
+  },{
+	
 	freezeTableName: true
 });
+
 
 User.hasMany(Post, {as: 'posts'});
 
 User.sync();
 Post.sync();
 
-
-
-app.post('/signup', function (req, res) {
-  User
-    .create(req.body)
-    .then(function (user){
-      res.json({message: 'Welcome to our site!'});
-    })
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
-
+app.post('/fb_login', function(req,res){
+	User
+	  .findOrCreate({
+	  	where : {
+	  		username : req.body.username
+	  	},
+	  	defaults:{
+	  		usertoken : req.body.usertoken
+	  	}
+	  }).spread(function(user,created){
+	  	user.updateAttributes({
+      		usertoken : req.body.usertoken
+      	});
+	  });
 });
 
 app.get('/user/:id', function (req, res) {
@@ -82,67 +90,40 @@ app.get('/user/:id', function (req, res) {
     });
 });
 
-app.post('/login', function (req, res) {
-  User.find({username: username})
-    .then(function (user) {
-      if (!user) {
-        res.json({message: 'Nobody here by that name'});
-      }
-      if (user.password !== password) {
-        res.json({message: 'Wrong password'});
-      }
-    });
-});
-
 app.post('/post', function (req, res) {
-  console.log(req.body);
-  Post
-    .create(req.body)
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
+	//query database where username = req.body.username and retrieve usertoken
+	//if usertoken !== req.cookies.access_token
+	console.log("Body: "+req.body);
+	if(!req.cookies.username){
+		console.log("Cookies don't exist: "+req.cookies.username);
+		//res.send('Please log in before posting');
+		res.error();
+		res.end();
+	}
+	else{
+		console.log("Cookies exist: "+req.cookies.username);
+		User.find({username: req.cookies.username})
+			.then(function(user){
+				if(!user){
+					res.send('Please log in before posting');
+				}
+				req.body.username = req.cookies.username;
+				console.log(req.body);
+				Post
+				  .create(req.body)
+				  .then(function(post){
+				  	res.send(post);
+				  	//res.send('post added');
+				  })
+				  .catch(function (error) {
+				    if (error) {
+				      res.send(error);
+				    }
+				  });
+			});
+	}
+
 });
-
-
-// app.get('/post:id', function (req, res) {
-//   Post
-//     .findById(id)
-//     .then(function (post) {
-//       res.send(post);
-//     })
-//     .catch(function (error) {
-//       if (error) {
-//         res.send(error);
-//       }
-//     });
-// });
-
-
-app.get('/post:id', function (req, res) {
-  Post
-    .findById(id)
-    .then(function (post) {
-      res.send(req.params.id);
-    })
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
-});
-
-
-
-// middleware
-
-
-
-
-
-
-
 
 app.get('/posts', function (req, res) {
   Post
@@ -155,6 +136,16 @@ app.get('/posts', function (req, res) {
     });
 });
 
+app.get('/fb_users', function (req, res) {
+  User
+    .findAll()
+    .then(function (users) {
+      res.send(users);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
 
 
 app.listen(3000);

@@ -15,16 +15,16 @@ angular
       this.submit = function () {
         console.log("post is running");
         console.log(this.post);
-
+        //console.log(document.cookie);
         $http.post('/post', this.post).success(function(data) {
-          
-        });
+          self.posted.push(data);
+         });
       // this.posted.push(this.post);
       this.post = {};
       }
 
       $http.get('/posts').success(function(data){
-        // console.log(data);
+        console.log(data);
         // console.log("this", this);
         // console.log("self", self);
         self.posted = self.posted.concat(data);
