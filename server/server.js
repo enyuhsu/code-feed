@@ -96,18 +96,8 @@ app.post('/login', function (req, res) {
 app.post('/post', function (req, res) {
   Post
     .create(req.body)
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
-});
-
-app.get('/post:id', function (req, res) {
-  Post
-    .findById(id)
     .then(function (post) {
-      res.send(req.params.id);
+      res.send(post);
     })
     .catch(function (error) {
       if (error) {
@@ -115,6 +105,19 @@ app.get('/post:id', function (req, res) {
       }
     });
 });
+
+// app.get('/post:id', function (req, res) {
+//   Post
+//     .findById(id)
+//     .then(function (post) {
+//       res.send(req.params.id);
+//     })
+//     .catch(function (error) {
+//       if (error) {
+//         res.send(error);
+//       }
+//     });
+// });
 
 
 // middleware
