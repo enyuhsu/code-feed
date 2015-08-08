@@ -55,11 +55,38 @@ var Post =  sequelize.define('post',{
 	freezeTableName: true
 });
 
+var Upvote =  sequelize.define('upvote',{
+  title: {
+    type: Sequelize.INTEGER,
+    field: 'upvote'
+  }
+  }, {
+  
+  freezeTableName: true
+});
+
+
+var Comment = sequelize.define('comment', {
+  comments:{
+    type: Sequelize.STRING,
+    field:'comments'
+  }
+    },{
+   freezeTableName: true 
+});
+
 
 User.hasMany(Post, {as: 'posts'});
+User.hasMany(Comment,{as: 'comments'});
+Post.hasMany(Comment, {as: 'comments'});
 
+
+
+User.hasMany(Post, {as: 'posts'});
+Upvote.sync();
 User.sync();
 Post.sync();
+Comment.sync();
 
 app.post('/fb_login', function(req,res){
 	User
@@ -77,6 +104,8 @@ app.post('/fb_login', function(req,res){
 	  });
 });
 
+
+
 app.get('/user/:id', function (req, res) {
   User
     .findById(id)
@@ -90,6 +119,62 @@ app.get('/user/:id', function (req, res) {
     });
 });
 
+
+
+
+
+app.post('/comment', function (req, res) {
+  console.log(req.body);
+  Comment
+    .create(req.body)
+    .then(function(comment){
+      res.send(comment);
+    })
+    .catch(function (error) {
+      if (error) {
+        res.send(error);
+      }
+    });
+});
+
+
+
+
+
+// app.get('/post:id', function (req, res) {
+//   Post
+//     .findById(id)
+//     .then(function (post) {
+//       res.send(req.params.id);
+//     })
+//     .catch(function (error) {
+//       if (error) {
+//         res.send(error);
+//       }
+//     });
+// });
+
+
+
+
+// middleware
+
+app.get('/com', function (req, res) {
+  Comment
+    .findAll()
+    .then(function (comments) {
+      res.send(comments);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
+
+
+
+
+
+
 app.post('/post', function (req, res) {
 	//query database where username = req.body.username and retrieve usertoken
 	//if usertoken !== req.cookies.access_token
@@ -99,8 +184,7 @@ app.post('/post', function (req, res) {
 		//res.send('Please log in before posting');
 		res.error();
 		res.end();
-	}
-	else{
+	} else {
 		console.log("Cookies exist: "+req.cookies.username);
 		User.find({username: req.cookies.username})
 			.then(function(user){
@@ -126,9 +210,11 @@ app.post('/post', function (req, res) {
 				    }
 				  });
 			});
-	}
+	
 
+  }
 });
+
 
 app.get('/posts', function (req, res) {
   Post
@@ -146,6 +232,18 @@ app.get('/fb_users', function (req, res) {
     .findAll()
     .then(function (users) {
       res.send(users);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
+
+app.post('/upvote', function (req, res) {
+  console.log(req.body);
+  Upvote
+    .create(req.body)
+    .then(function(upvote) {
+      res.send(upvote);
     })
     .catch(function (error) {
       res.send(error);

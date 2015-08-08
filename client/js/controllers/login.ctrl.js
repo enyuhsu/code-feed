@@ -8,7 +8,6 @@ angular
 
     function LoginController($scope, $http, $login) {
     	this.user={}
-    	//this.loggedIn;
     	this.SDKinit;
     	var _this=this;
     	this.loggedIn = $login.loggedIn;
@@ -48,7 +47,7 @@ angular
     		FB.getLoginStatus(function(response) {
     			statusChangeCallback(response);
     		});
-    	}
+    	};
 
     	// init Javascript SDK
     	window.fbAsyncInit = function() {
@@ -72,12 +71,6 @@ angular
     	    	statusChangeCallback(response);
     	    });
     	  }
-    	  
-    	  // if(FB !== undefined){
-    	  // 	FB.getLoginStatus(function(response){
-    	  //   	statusChangeCallback(response);
-    	  //   });
-    	  // }
 
     	//Load SDK asynchronously
     	(function(d, s, id){
@@ -101,17 +94,6 @@ angular
 
     	this.login = function(){
     		FB.login(this.postLogin);
-    		// FB.login(function(response){
-    		// 	if(response.authResponse.status === "connected"){
-    		// 		_this.loggedIn = true;
-    		// 	}
-    		// 	_this.postLogin();
-    		// });
-    		// FB.getLoginStatus(function(response){
-    	 //    	statusChangeCallback(response);
-    	 //    	//window.location.reload();
-    	 //    });
-    		//this.checkLoginState();
     	}
 
     	this.postLogin = function(){
@@ -129,9 +111,9 @@ angular
     			window.location.reload();
     	}
 
-    	this.myFunc = function(){
-    		console.log("FB login button calls controller function!");
-    	}
+    	// this.myFunc = function(){
+    	// 	console.log("FB login button calls controller function!");
+    	// }
       
     }
 
