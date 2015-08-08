@@ -55,6 +55,16 @@ var Post =  sequelize.define('post',{
 	freezeTableName: true
 });
 
+var Upvote =  sequelize.define('upvote',{
+  title: {
+    type: Sequelize.INTEGER,
+    field: 'upvote'
+  }
+  }, {
+  
+  freezeTableName: true
+});
+
 
 var Comment = sequelize.define('comment', {
   comments:{
@@ -71,6 +81,9 @@ User.hasMany(Comment,{as: 'comments'});
 Post.hasMany(Comment, {as: 'comments'});
 
 
+
+User.hasMany(Post, {as: 'posts'});
+Upvote.sync();
 User.sync();
 Post.sync();
 Comment.sync();
@@ -109,6 +122,7 @@ app.get('/user/:id', function (req, res) {
 
 
 
+
 app.post('/comment', function (req, res) {
   console.log(req.body);
   Comment
@@ -126,6 +140,7 @@ app.post('/comment', function (req, res) {
 
 
 
+
 // app.get('/post:id', function (req, res) {
 //   Post
 //     .findById(id)
@@ -138,6 +153,7 @@ app.post('/comment', function (req, res) {
 //       }
 //     });
 // });
+
 
 
 
@@ -168,8 +184,7 @@ app.post('/post', function (req, res) {
 		//res.send('Please log in before posting');
 		res.error();
 		res.end();
-	}
-	else{
+	} else {
 		console.log("Cookies exist: "+req.cookies.username);
 		User.find({username: req.cookies.username})
 			.then(function(user){
@@ -190,8 +205,9 @@ app.post('/post', function (req, res) {
 				    }
 				  });
 			});
-	}
+	
 
+  }
 });
 
 
@@ -211,6 +227,18 @@ app.get('/fb_users', function (req, res) {
     .findAll()
     .then(function (users) {
       res.send(users);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
+
+app.post('/upvote', function (req, res) {
+  console.log(req.body);
+  Upvote
+    .create(req.body)
+    .then(function(upvote) {
+      res.send(upvote);
     })
     .catch(function (error) {
       res.send(error);

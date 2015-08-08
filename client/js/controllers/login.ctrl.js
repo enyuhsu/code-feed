@@ -1,10 +1,10 @@
 angular
   .module('app')
     .controller('LoginController', LoginController);
-    LoginController.$inject =  ['$scope','$http'];
+    LoginController.$inject =  ['$scope','$http', '$state'];
 
-    function LoginController($scope, $http) {
-    	this.user={}
+    function LoginController($scope, $http, $state) {
+    	this.user={};
     	var _this=this;
     	//this is called with results from FB.getLoginStatus
     	function statusChangeCallback(response) {
@@ -37,7 +37,7 @@ angular
     		FB.getLoginStatus(function(response) {
     			statusChangeCallback(response);
     		});
-    	}
+    	};
 
     	// init Javascript SDK
     	window.fbAsyncInit = function() {
@@ -75,12 +75,12 @@ angular
     	}
 
     	//not being called
-    	$scope.logout = function(){
+    	this.logout = function(){
     		console.log("Logged out");
     			document.getElementById('status').innerHTML = 'Logged out';
     			document.cookies="access_token=;username=;";
-    			//FB.logout();
-    	}
+    			FB.logout();
+    	};
       
     }
 
