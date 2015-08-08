@@ -48,10 +48,23 @@ var Post =  sequelize.define('post',{
 	freezeTableName: true
 });
 
+var Comment = sequelize.define('comment', {
+  comments:{
+    type: Sequelize.STRING,
+    field:'comments'
+  }
+    },{
+   freezeTableName: true 
+});
+
 User.hasMany(Post, {as: 'posts'});
+User.hasMany(Comment,{as: 'comments'});
+Post.hasMany(Comment, {as: 'comments'});
+
 
 User.sync();
 Post.sync();
+Comment.sync();
 
 
 
@@ -68,6 +81,8 @@ app.post('/signup', function (req, res) {
     });
 
 });
+
+
 
 app.get('/user/:id', function (req, res) {
   User
@@ -105,26 +120,12 @@ app.post('/post', function (req, res) {
     });
 });
 
-
-// app.get('/post:id', function (req, res) {
-//   Post
-//     .findById(id)
-//     .then(function (post) {
-//       res.send(post);
-//     })
-//     .catch(function (error) {
-//       if (error) {
-//         res.send(error);
-//       }
-//     });
-// });
-
-
-app.get('/post:id', function (req, res) {
-  Post
-    .findById(id)
-    .then(function (post) {
-      res.send(req.params.id);
+app.post('/comment', function (req, res) {
+  console.log(req.body);
+  Comment
+    .create(req.body)
+    .then(function(comment){
+      res.send(comment);
     })
     .catch(function (error) {
       if (error) {
@@ -135,9 +136,34 @@ app.get('/post:id', function (req, res) {
 
 
 
+
+// app.get('/post:id', function (req, res) {
+//   Post
+//     .findById(id)
+//     .then(function (post) {
+//       res.send(req.params.id);
+//     })
+//     .catch(function (error) {
+//       if (error) {
+//         res.send(error);
+//       }
+//     });
+// });
+
+
+
 // middleware
 
-
+app.get('/com', function (req, res) {
+  Comment
+    .findAll()
+    .then(function (comments) {
+      res.send(comments);
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
 
 
 

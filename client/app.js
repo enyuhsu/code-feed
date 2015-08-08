@@ -10,6 +10,14 @@ angular.module('app', ['ui.router'])
             controller: 'HomeController',
             controllerAs: 'homeCtrl'
         });
+
+    $stateProvider
+        .state('comments', {
+            url: '/comments',
+            templateUrl: 'partials/comments.html',
+            controller: 'CommentController',
+            controllerAs: 'commentCtrl'
+        });    
         
         
 

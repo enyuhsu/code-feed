@@ -7,7 +7,8 @@ angular
      function HomeController($http) {
       var self = this;
       this.post = {};
-      
+     
+
 
      
      this.posted  = [];
@@ -30,6 +31,6 @@ angular
         self.posted = self.posted.concat(data);
       });
 
-      //allPosts;
-      console.log("we are accesing posts properly");
+      
+
     }
