@@ -1,7 +1,7 @@
 <form ng-submit='homeCtrl.submit()'>
 <input type = "text" placeholder="Title" ng-model="homeCtrl.post.title"/><br/>
 <input type="text" placeholder="URL" ng-model="homeCtrl.post.url"/><br/>
-<textarea type="text" placeholder="Post Here" ng-model="homeCtrl.post.posts" rows=8 cols=60></textarea>
+<textarea type="text" placeholder="Post Here (limit 255 Characters)" ng-model="homeCtrl.post.posts" rows=8 cols=60></textarea>
 
 
 <input type="submit" id="submit" value="Submit" />
@@ -11,12 +11,15 @@
 <div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
 Title: <a ng-href="{{post.url}}">{{post.title}}</a><br/>
 Post:{{post.posts}}<br/>
+<div style="float:left"  ng-model = "homeCtrl.upcounter">{{homeCtrl.upcounter}}</div>
 
+<div style="float:left" ng-click = "homeCtrl.upVote()" class = "glyphicon glyphicon-chevron-up"> </div>
 
+<div style="float:left" ng-model = "homeCtrl.downcounter">{{homeCtrl.downcounter}}</div>
 
-
-<a style= "float:right" id="comments" ui-sref="comments">comments</a><br />
- 
+<div style="float:left" ng-click = "homeCtrl.downVote()" class = "glyphicon glyphicon-chevron-down"> </div><br/>
+<a style="float:right" style= "float:right" id="comments" ui-sref="comments">comments</a><br/>
+ </div>
 
 
 <!--
@@ -51,7 +54,6 @@ Post:{{post.posts}}<br/>
 >>>>>>> dc40f47c1a0ac83bad93eb2aad7396ec66be564c
  
 <!--<a  ng-href= link to comments page  > comments </a> -->
-</div>
 
-<div ng-model = "homeCtrl.counter">{{homeCtrl.counter}}</div>
-<button ng-click = "homeCtrl.upVote()"> upvote</button>
+
+

@@ -21,28 +21,44 @@ angular
       };
 
       $http.get('/posts').success(function(data){
-        
-        // console.log("this", this);
-        // console.log("self", self);
         self.posted = self.posted.concat(data);
       });
 
       
 
-      this.counter = 0;
+      this.upcounter = 0;
       this.onlyOne = false;
       this.upVote = function () {
         
         if (this.onlyOne === false) {
-          this.counter++;
+          this.upcounter++;
           this.onlyOne = true;
         } else {
-          this.counter--;
+          this.upcounter--;
           this.onlyOne = false;
         }
         
         console.log(this.onlyOne);
-        $http.post('/upvote', {counter: this.counter}).success(function (data) {
+        $http.post('/vote', {counter: this.upcounter}).success(function (data) {
+          console.log('click');
+          
+        });
+      };
+
+      this.downcounter = 0;
+      this.downonlyOne = false;
+      this.downVote = function () {
+        
+        if (this.downonlyOne === false) {
+          this.downcounter--;
+          this.downonlyOne = true;
+        } else {
+          this.downcounter++;
+          this.downonlyOne = false;
+        }
+        
+        console.log(this.downonlyOne);
+        $http.post('/vote', {counter: this.downcounter}).success(function (data) {
           console.log('click');
           
         });
