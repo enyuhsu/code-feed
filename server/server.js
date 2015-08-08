@@ -66,6 +66,7 @@ app.post('/signup', function (req, res) {
         res.send(error);
       }
     });
+
 });
 
 app.get('/user/:id', function (req, res) {
@@ -94,9 +95,10 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/post', function (req, res) {
+  console.log(req.body);
   Post
     .create(req.body)
-    .then(function (post) {
+    .then(function(post) {
       res.send(post);
     })
     .catch(function (error) {
@@ -105,6 +107,7 @@ app.post('/post', function (req, res) {
       }
     });
 });
+
 
 // app.get('/post:id', function (req, res) {
 //   Post
@@ -120,9 +123,6 @@ app.post('/post', function (req, res) {
 // });
 
 
-// middleware
-app.use(express.static('client'));
-
 app.get('/posts', function (req, res) {
   Post
     .findAll()
@@ -133,6 +133,7 @@ app.get('/posts', function (req, res) {
       res.send(error);
     });
 });
+
 
 
 app.listen(3000);

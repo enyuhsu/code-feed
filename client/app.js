@@ -8,7 +8,7 @@ angular.module('app', ['ui.router'])
             url: '/home',
             templateUrl: 'partials/home.html',
             controller: 'HomeController',
-            controllerAs: 'homeControl'
+            controllerAs: 'homeCtrl'
         });
         
         
