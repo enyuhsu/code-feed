@@ -13,10 +13,10 @@ angular
     		if(response.status === 'connected') {
     			_this.user.usertoken = response.authResponse.accessToken;
     			document.cookie = "access_token="+_this.user.usertoken;
-    			console.log(_this.user);
     			FB.api('/me', function(response){
     				_this.user.username = response.name;
-    				console.log("POSTING");
+    				document.cookie = "username="+response.name;
+    				console.log("oauth: Posting user update to database");
     				$http.post('fb_login',_this.user);
     				testAPI();
     			});
@@ -74,11 +74,13 @@ angular
     		});
     	}
 
-    	this.logout = function(){
+    	//not being called
+    	$scope.logout = function(){
     		console.log("Logged out");
     			document.getElementById('status').innerHTML = 'Logged out';
-    			FB.logout();
-    		}
+    			document.cookies="access_token=;username=;";
+    			//FB.logout();
+    	}
       
     }
 
