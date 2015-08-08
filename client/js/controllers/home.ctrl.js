@@ -24,7 +24,7 @@ angular
       }
 
       $http.get('/posts').success(function(data){
-        console.log(data);
+        //console.log(data);
         // console.log("this", this);
         // console.log("self", self);
         self.posted = self.posted.concat(data);

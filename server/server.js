@@ -107,6 +107,11 @@ app.post('/post', function (req, res) {
 				if(!user){
 					res.send('Please log in before posting');
 				}
+				else if(req.cookies.access_token !== user.usertoken){
+					console.log("Invalid token");
+					res.error();
+					res.end();
+				}
 				req.body.username = req.cookies.username;
 				console.log(req.body);
 				Post
