@@ -1,16 +1,24 @@
 angular
   .module('app')
-    .controller('LoginController', LoginController);
-    LoginController.$inject =  ['$scope','$http', '$state'];
+    .controller('LoginController', LoginController)
+    .service("$login", function(){
+        this.loggedIn = false;
+    });
+    LoginController.$inject =  ['$scope','$http', '$login'];
 
-    function LoginController($scope, $http, $state) {
-    	this.user={};
+    function LoginController($scope, $http, $login) {
+    	this.user={}
+    	this.SDKinit;
     	var _this=this;
+    	this.loggedIn = $login.loggedIn;
+
     	//this is called with results from FB.getLoginStatus
     	function statusChangeCallback(response) {
     		console.log('statusChangeCallback');
 
     		if(response.status === 'connected') {
+    			$login.loggedIn = true;
+    			_this.loggedIn = true;
     			_this.user.usertoken = response.authResponse.accessToken;
     			document.cookie = "access_token="+_this.user.usertoken;
     			FB.api('/me', function(response){
@@ -23,12 +31,14 @@ angular
     		}
     		else if (response.status === 'not_authorized') {
     			//Logged into fb but not your app
-    			//document.getElementById('status').innerHTML = 'Please log into the app.';
+    			$login.loggedIn = false;
+    			document.getElementById('status').innerHTML = 'Please log into the app.';
     		}
     		else {
-    			//document.getElementById('status').innerHTML = 'Please log into Facebook.';
+    			console.log("statusChangeCallback set login false");
+    			$login.loggedIn = false;
+    			document.getElementById('status').innerHTML = 'Please log into Facebook.';
     		}
-
     	}
 
     	this.checkLoginState = function() {
@@ -52,7 +62,15 @@ angular
     	    FB.getLoginStatus(function(response){
     	    	statusChangeCallback(response);
     	    });
+    	    _this.SDKinit = true;
     	  };
+
+    	  if(this.SDKinit){
+    	  	console.log("sdk has been init: getting login status");
+    	  	FB.getLoginStatus(function(response){
+    	    	statusChangeCallback(response);
+    	    });
+    	  }
 
     	//Load SDK asynchronously
     	(function(d, s, id){
@@ -74,13 +92,28 @@ angular
     		});
     	}
 
-    	//not being called
+    	this.login = function(){
+    		FB.login(this.postLogin);
+    	}
+
+    	this.postLogin = function(){
+    		console.log("postlogin");
+    		window.location.reload();
+    	}
+
     	this.logout = function(){
-    		console.log("Logged out");
+    		console.log("logout set false");
+    		$login.loggedIn = false;
+    		//console.log("Logged out");
     			document.getElementById('status').innerHTML = 'Logged out';
-    			document.cookies="access_token=;username=;";
+    			document.cookie="access_token=;username=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     			FB.logout();
-    	};
+    			window.location.reload();
+    	}
+
+    	// this.myFunc = function(){
+    	// 	console.log("FB login button calls controller function!");
+    	// }
       
     }
 

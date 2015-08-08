@@ -1,5 +1,12 @@
 <h3>Login with Facebook</h3>
 
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true" ng-click="logout()"></div>
+<!-- <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true" ng-click="loginCtrl.myFunc()"></div> -->
+<!-- <fb:login-button autologoutlink="true" size="large"
+  	onlogin="loginCtrl.myFunc()">
+</fb:login-button>
+ -->
+<img ng-src="partials/assets/fb-login-button.png" ng-show="!loginCtrl.loggedIn" ng-click="loginCtrl.login();" class="fblogin" >
+<!-- <p class="glyphicon-envelope"></p> -->
+<img ng-src="partials/assets/fb-logout-button.png" ng-show="loginCtrl.loggedIn" ng-click="loginCtrl.logout();" class="fblogout" >
 
 <div id="status"></div>

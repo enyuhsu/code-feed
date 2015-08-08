@@ -106,8 +106,6 @@ app.post('/fb_login', function(req,res){
 	  });
 });
 
-
-
 app.get('/user/:id', function (req, res) {
   User
     .findById(id)
@@ -120,10 +118,6 @@ app.get('/user/:id', function (req, res) {
       }
     });
 });
-
-
-
-
 
 app.post('/comment', function (req, res) {
   console.log(req.body);
@@ -139,26 +133,6 @@ app.post('/comment', function (req, res) {
     });
 });
 
-
-
-
-
-// app.get('/post:id', function (req, res) {
-//   Post
-//     .findById(id)
-//     .then(function (post) {
-//       res.send(req.params.id);
-//     })
-//     .catch(function (error) {
-//       if (error) {
-//         res.send(error);
-//       }
-//     });
-// });
-
-
-
-
 // middleware
 
 app.get('/com', function (req, res) {
@@ -171,11 +145,6 @@ app.get('/com', function (req, res) {
       res.send(error);
     });
 });
-
-
-
-
-
 
 app.post('/post', function (req, res) {
 	//query database where username = req.body.username and retrieve usertoken
@@ -192,6 +161,11 @@ app.post('/post', function (req, res) {
 			.then(function(user){
 				if(!user){
 					res.send('Please log in before posting');
+				}
+				else if(req.cookies.access_token !== user.usertoken){
+					console.log("Invalid token");
+					res.error();
+					res.end();
 				}
 				req.body.username = req.cookies.username;
 				console.log(req.body);
