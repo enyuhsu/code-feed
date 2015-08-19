@@ -75,18 +75,20 @@ var Comment = sequelize.define('comment', {
    freezeTableName: true 
 });
 
+User.sync();
+Post.sync();
+Comment.sync();
+Upvote.sync();
 
 User.hasMany(Post, {as: 'posts'});
 User.hasMany(Comment,{as: 'comments'});
 Post.hasMany(Comment, {as: 'comments'});
+Post.belongsTo(User);
 
 
 
-User.hasMany(Post, {as: 'posts'});
-Upvote.sync();
-User.sync();
-Post.sync();
-Comment.sync();
+
+
 
 app.post('/fb_login', function(req,res){
 	User

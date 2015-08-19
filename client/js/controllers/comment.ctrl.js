@@ -7,7 +7,7 @@ angular
      function CommentController($http) {
      var self = this;
      this.comment = {};
-	 this.commented  = [];
+	   this.commented  = [];
 
 
      this.userComment = function(){
@@ -15,11 +15,11 @@ angular
         $http.post('/comment',this.comment).success(function(data){
         self.commented.push(data);	
         });
-        this.comment ={};
+      this.comment ={};
       }	
 
-	 $http.get('/com').success(function(data){
-      console.log(data);
+	      $http.get('/com').success(function(data){
+        console.log(data);
         self.commented = self.commented.concat(data);
       });
      }

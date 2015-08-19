@@ -1,11 +1,11 @@
 <form ng-submit='homeCtrl.submit()'>
-<input type = "text" placeholder="Title" ng-model="homeCtrl.post.title"/><br/>
-<input type="text" placeholder="URL" ng-model="homeCtrl.post.url"/><br/>
-<textarea type="text" placeholder="Post Here (limit 255 Characters)" ng-model="homeCtrl.post.posts" rows=8 cols=60></textarea>
+<input class = "col-lg-3 col-xs-12"  type = "text" placeholder="Title" ng-model="homeCtrl.post.title"/><br/><br/>
+<input class = "col-lg-3 col-xs-12" type="text" placeholder="URL" ng-model="homeCtrl.post.url"/><br/><br/>
+<textarea type="text" placeholder="Post Here (limit 255 Characters)" ng-model="homeCtrl.post.posts" rows=8 cols=55></textarea><br/>
 
 
-<input type="submit" id="submit" value="Submit" />
-</form>
+<input class = "col-lg-1 col-lg-offset-2 col-xs-12" type="submit" id="submit" value="Submit" />
+</form><br/><br/>
 
 
 <div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
