@@ -8,7 +8,7 @@ var morgan = require('morgan');
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+/**
 var sequelize = new Sequelize('postgres://localhost/codefeed');
 
 var User = sequelize.define('users', {
@@ -30,7 +30,7 @@ var User = sequelize.define('users', {
 	}
 	}, {
 	freezeTableName: true
-	
+
 });
 
 var Post =  sequelize.define('post',{
@@ -41,7 +41,7 @@ var Post =  sequelize.define('post',{
 	url: {
 		type: Sequelize.STRING,
 		field: 'url'
-	},	
+	},
 	posts: {
 		type: Sequelize.STRING,
 		field: 'posts'
@@ -51,7 +51,7 @@ var Post =  sequelize.define('post',{
 		field: 'username'
 	}
   },{
-	
+
 	freezeTableName: true
 });
 
@@ -61,7 +61,7 @@ var Upvote =  sequelize.define('upvote',{
     field: 'upvote'
   }
   }, {
-  
+
   freezeTableName: true
 });
 
@@ -72,7 +72,7 @@ var Comment = sequelize.define('comment', {
     field:'comments'
   }
     },{
-   freezeTableName: true 
+   freezeTableName: true
 });
 
 User.sync();
@@ -84,7 +84,7 @@ User.hasMany(Post, {as: 'posts'});
 User.hasMany(Comment,{as: 'comments'});
 Post.hasMany(Comment, {as: 'comments'});
 Post.belongsTo(User);
-
+*/
 
 
 
@@ -181,7 +181,7 @@ app.post('/post', function (req, res) {
 				    }
 				  });
 			});
-	
+
 
   }
 });
