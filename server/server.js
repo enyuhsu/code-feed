@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var Sequelize = require('sequelize');
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
@@ -8,8 +9,22 @@ var morgan = require('morgan');
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
-/**
-var sequelize = new Sequelize('postgres://localhost/codefeed');
+
+var DATABASE_URL = 'postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu';
+pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
+
+  client
+    .query('SELECT table_schema,table_name FROM information_schema.tables;')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
+    });
+});
+
+var sequelize = new Sequelize(DATABASE_URL, 'ifxtabnfjinbbw', 'pGvSheCDwrimLtiqpbBm-YAekP');
+
+
 
 var User = sequelize.define('users', {
 	username: {
@@ -84,7 +99,7 @@ User.hasMany(Post, {as: 'posts'});
 User.hasMany(Comment,{as: 'comments'});
 Post.hasMany(Comment, {as: 'comments'});
 Post.belongsTo(User);
-*/
+//Comments.belongsToMany()
 
 
 
