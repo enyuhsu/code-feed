@@ -4,22 +4,20 @@ angular
     
     CommentController.$inject =  ['$http'];
      
-     function CommentController($http) {
-     var self = this;
-     this.comment = {};
-	 this.commented  = [];
+    function CommentController($http) {
+      var self = this;
+      this.comment = {};
+      this.commented  = [];
 
-
-     this.userComment = function(){
-
+      this.userComment = function(){
         $http.post('/comment',this.comment).success(function(data){
-        self.commented.push(data);	
+          self.commented.push(data);	
         });
         this.comment ={};
       }	
 
-	 $http.get('/com').success(function(data){
-      console.log(data);
+      $http.get('/com').success(function(data){
+        console.log(data);
         self.commented = self.commented.concat(data);
       });
-     }
+    }
