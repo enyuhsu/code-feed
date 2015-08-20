@@ -4,7 +4,7 @@ angular
     // this sets the alias for home controller as "HomeController"
     HomeController.$inject =  ['$http'];
      
-     function HomeController($http) {
+    function HomeController($http) {
       var self = this;
       this.post = {};
       this.posted  = [];
@@ -33,7 +33,8 @@ angular
         if (this.onlyOne === false) {
           this.upcounter++;
           this.onlyOne = true;
-        } else {
+        }
+        else {
           this.upcounter--;
           this.onlyOne = false;
         }
@@ -52,7 +53,8 @@ angular
         if (this.downonlyOne === false) {
           this.downcounter--;
           this.downonlyOne = true;
-        } else {
+        }
+        else {
           this.downcounter++;
           this.downonlyOne = false;
         }
