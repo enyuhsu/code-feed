@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-          <!-- CSS -->  
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/css/styles.css">
-          <!-- JAVASCRIPTS -->
-<script src="libs/angular/angular.js"></script>
-<script src="libs/angular-ui-router/angular-ui-router.js"></script>
-<script src="app.js"></script>
-        <!-- CONTROLLERS -->
-<script type="text/javascript" src="js/controllers/home.ctrl.js"></script>
-<script type="text/javascript" src="js/controllers/comment.ctrl.js"></script>
-<script type="text/javascript" src="js/controllers/login.ctrl.js"></script>
-  <!--<script type="text/javascript" src="js/controllers/post.ctrl.js"></script>-->
-<!-- this links the app.js and home controller together^^^^ allowing them ti interact-->
-<title>CodeFeed</title>
-</head>
 
-<body ng-app = 'app' >
-<!-- Fixed navbar -->
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <ul class="nav navbar-nav">
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-sref="oauth">Login</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</nav>
+  <head>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
-<h1 style="text-align:center">C0DE/F33D</h1>
-<ui-view> <!--  keep the rest of the page like this and add in the partials here  -->
-<!-- put the posts here -->
-</body>
+
+    <!-- JAVASCRIPTS -->
+    <script src="libs/angular/angular.js"></script>
+    <script src="libs/angular-ui-router/release/angular-ui-router.js"></script>
+
+
+    <script src="app.js"></script>
+    <!-- CONTROLLERS -->
+    <script type="text/javascript" src="js/controllers/home.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/comment.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/login.ctrl.js"></script>
+
+    <title>CodeFeed</title>
+
+  </head>
+
+  <body ng-app = 'app' >
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav">
+            <li><a ui-sref="home"><b>C0DE/F33D</b><</a></li>
+            <li><a ui-sref="oauth">Login</a></li>
+            <li><a ui-sref="post">Create Post</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+        
+      </div>
+
+    </nav>
+    <ui-view> <!--  keep the rest of the page like this and add in the partials here  -->
+
+
+    <!-- put the posts here -->
+
+
+
+  </body>
 
 
 </html>
