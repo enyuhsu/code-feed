@@ -10,17 +10,21 @@ app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// var DATABASE_URL = 'postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu';
-// pg.connect(process.env.DATABASE_URL, function(err, client) {
-//   if (err) throw err;
-//   console.log('Connected to postgres! Getting schemas...');
 
-//   client
-//     .query('SELECT table_schema,table_name FROM information_schema.tables;')
-//     .on('row', function(row) {
-//       console.log(JSON.stringify(row));
-//     });
-// });
+//var DATABASE_URL = 'postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu';
+/**
+pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
+
+  client
+    .query('SELECT table_schema,table_name FROM information_schema.tables;')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
+    });
+});
+*/
+
 
 var sequelize = new Sequelize('postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu');
 
