@@ -10,6 +10,7 @@ app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+/**
 var DATABASE_URL = 'postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu';
 pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
@@ -21,9 +22,23 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
       console.log(JSON.stringify(row));
     });
 });
+*/
 
-var sequelize = new Sequelize(DATABASE_URL, 'ifxtabnfjinbbw', 'pGvSheCDwrimLtiqpbBm-YAekP');
 
+var sequelize = new Sequelize(DATABASE_URL, 'ifxtabnfjinbbw', 'pGvSheCDwrimLtiqpbBm-YAekP', {
+      dialect: "postgres", // or 'sqlite', 'postgres', 'mariadb'
+      port:    5432, // or 5432 (for postgres)
+    });
+
+sequelize
+  .authenticate()
+  .complete(function(err) {
+    if (!!err) {
+      console.log('Unable to connect to the database:', err);
+    } else {
+      console.log('Connection has been established successfully.');
+    }
+  });
 
 
 var User = sequelize.define('users', {
