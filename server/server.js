@@ -26,20 +26,8 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
 
 
 
-var sequelize = new Sequelize('postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu', 'ifxtabnfjinbbw', 'pGvSheCDwrimLtiqpbBm-YAekP', {
-      dialect: "postgres", // or 'sqlite', 'postgres', 'mariadb'
-      port:    5432, // or 5432 (for postgres)
-    });
+var sequelize = new Sequelize('postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu');
 
-sequelize
-  .authenticate()
-  .complete(function(err) {
-    if (!!err) {
-      console.log('Unable to connect to the database:', err);
-    } else {
-      console.log('Connection has been established successfully.');
-    }
-  });
 
 
 var User = sequelize.define('users', {
