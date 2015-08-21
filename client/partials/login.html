@@ -1,12 +1,15 @@
-<h3>Login with Facebook</h3>
+<h3>Login Please</h3>
 
-<!-- <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true" ng-click="loginCtrl.myFunc()"></div> -->
-<!-- <fb:login-button autologoutlink="true" size="large"
-  	onlogin="loginCtrl.myFunc()">
-</fb:login-button>
- -->
-<img ng-src="partials/assets/fb-login-button.png" ng-show="!loginCtrl.loggedIn" ng-click="loginCtrl.login();" class="fblogin" >
-<!-- <p class="glyphicon-envelope"></p> -->
-<img ng-src="partials/assets/fb-logout-button.png" ng-show="loginCtrl.loggedIn" ng-click="loginCtrl.logout();" class="fblogout" >
+<form action="">
+  <input type="text" name="Username" placeholder="Username"/>
+  <input type="email" name="email" placeholder="Email"/>
+  <input type="password" name="password" placeholder="Password">
+  <input type="submit" value="submit">
 
+  <p>
+      <a class="btn btn-block btn-social btn-github">
+        <i class="fa fa-github"></i>Sign in with GitHub
+      </a>
+  </p>
+</form>
 <div id="status"></div>
