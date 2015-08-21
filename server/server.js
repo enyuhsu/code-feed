@@ -8,7 +8,7 @@ var express = require('express'),
     http = require('http'),
     array = [];
 
-mongoose.connect('mongodb://Thlapath:meubanks1@ds059672.mongolab.com:59672/recoddit', function(err){
+mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
   if(err){return err;}
   console.log("connected to Db");
 });
@@ -24,7 +24,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
-	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User' required: true},
+	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]//should reference comment id
 });
 
@@ -89,13 +89,15 @@ app.get('/comments', function (req, res) {
 });
 
 app.post('/post', function (req, res) {
+	console.log(req.body);
 		var newpost = new Post({
 				title: req.body.title,
 				url: req.body.url,
 				post: req.body.post,
-				postedBy: req.body.username
+	//			postedBy: req.body.username
 		});
 		newpost.save(function(){
+			res.status(200).end();
 			console.log("saved a new post");
 		});
 	// console.log("Body: "+req.body);
