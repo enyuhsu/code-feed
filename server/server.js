@@ -74,7 +74,7 @@ app.post('/login',
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://ancient-tundra-6889.herokuapp.com/"
+    callbackURL: "https://ancient-tundra-6889.herokuapp.com/"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {

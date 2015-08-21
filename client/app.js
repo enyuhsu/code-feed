@@ -1,5 +1,5 @@
 angular.module('app', ['ui.router'])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $locationProvider) {
 
 
   $stateProvider
@@ -27,8 +27,8 @@ angular.module('app', ['ui.router'])
       controller: 'LoginController',
       controllerAs: 'loginCtrl'
     });
-
+    $stateProvider.otherwise('/');
+   $locationProvider.html5Mode({
+      enabled: true
+   });
 });
-
-
-
