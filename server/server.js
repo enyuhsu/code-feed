@@ -12,7 +12,7 @@ var express = require('express'),
     GitHubStrategy = require('passport-github2').Strategy;
 
 var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
-var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d"
+var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d";
 
 
 mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
@@ -31,7 +31,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
-	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+//	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
 });
 
@@ -126,7 +126,7 @@ app.post('/post', function (req, res) {
 		var newpost = new Post({
 				title: req.body.title,
 				url: req.body.url,
-				post: req.body.post,
+				post: req.body.post
 	//			postedBy: req.body.username
 		});
 		newpost.save(function(){

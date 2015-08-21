@@ -1,23 +1,23 @@
 angular
   .module('app')
     .controller('CommentController', CommentController);
-    
+
     CommentController.$inject =  ['$http'];
-     
+
     function CommentController($http) {
-      var self = this;
+      var that = this;
       this.comment = {};
-      this.commented  = [];
+      this.allComments = []
+
+      $http.get('/com').success(function(data, status){
+        console.log(data);
+        that.allComments = allComments.concat(data); //should join all comments into one single array?
+      });
 
       this.userComment = function(){
-        $http.post('/comment',this.comment).success(function(data){
-          self.commented.push(data);	
+        $http.post('/comment',this.comment).success(function(data,status){
+          that.comment = {};//clears the iput boxes
+          that.allComments.push(data);//newest post should immediatly be displated in the page
         });
-        this.comment ={};
-      }	
-
-      $http.get('/com').success(function(data){
-        console.log(data);
-        self.commented = self.commented.concat(data);
-      });
+      }
     }
