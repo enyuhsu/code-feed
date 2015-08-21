@@ -114,6 +114,5 @@ angular
     	// this.myFunc = function(){
     	// 	console.log("FB login button calls controller function!");
     	// }
-      
-    }
 
+    }

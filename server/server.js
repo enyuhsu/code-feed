@@ -11,8 +11,9 @@ var express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     GitHubStrategy = require('passport-github2').Strategy;
 
-	var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
-	var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d";
+var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
+var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d"
+
 
 mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
   if(err){return err;}
