@@ -1,41 +1,71 @@
 var express = require('express'),
-    app = express(),
-    path = require('path'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    Schema = mongoose.Schema,
-    http = require('http'),
-    array = [],
-    passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    GitHubStrategy = require('passport-github2').Strategy;
+  app = express(),
+  path = require('path'),
+  mongoose = require('mongoose'),
+  bodyParser = require('body-parser'),
+  cookieParser = require('cookie-parser'),
+  Schema = mongoose.Schema,
+  http = require('http'),
+  array = [],
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  GitHubStrategy = require('passport-github2').Strategy;
 
 var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
 var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d";
 
 
-mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
-  if(err){return err;}
+mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err) {
+  if (err) {
+    return err;
+  }
   console.log("connected to Db");
 });
 
+/*app.all('/',function(req,res,next){
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});*/
+app.get('/post', function(req, res) {
+    res.sendFile(path.join(__dirname, '/../client/index.html'));
+});
+app.get('/oauth', function(req, res) {
+    res.sendFile(path.join(__dirname, '/../client/index.html'));
+});
 var UserSchema = new Schema({
-	email:{type: String , required:true , index: {unique: true}},
-	username:{type: String, required:true, index: {unique: true}},
-	password: {type: String, required: true},
-	access_token: {type: String}
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
+  username: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  access_token: {
+    type: String
+  }
 });
 
 var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
+	date: { type: Date, default: Date.now },
 	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
   date: { type: Date, default: Date.now },
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId, date:{ type: Date, default: Date.now } }]
 });
-
 
 // var CommentSchema = new Schema({
 // 	comment: {type: String, required: true},
@@ -45,7 +75,6 @@ var PostSchema = new Schema({
 
 var User = mongoose.model("User", UserSchema);
 var Post = mongoose.model("Post", PostSchema);
-app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 //Oauth info
@@ -55,21 +84,30 @@ app.use(passport.session());
 //local login
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
+    User.findOne({
+      username: username
+    }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false);
+      }
+      if (!user.verifyPassword(password)) {
+        return done(null, false);
+      }
       return done(null, user);
     });
   }
 ));
 
 app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
+  passport.authenticate('local', {
+    failureRedirect: '/login'
+  }),
   function(req, res) {
     res.redirect('/');
   });
-
 
 //github login
 passport.use(new GitHubStrategy({
@@ -77,6 +115,7 @@ passport.use(new GitHubStrategy({
     clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL: "https://ancient-tundra-6889.herokuapp.com/"
   },
+
 	function(accessToken, refreshToken, profile, done){
 		console.log('accessToken ' + accessToken);
 		console.log("refresh token " + refreshToken);
@@ -95,20 +134,24 @@ passport.use(new GitHubStrategy({
 	// 		console.log(user);
   //   });
   // }
-));
 
-passport.serializeUser(function (user, done) {
+));
+passport.serializeUser(function(user, done) {
   done(null, user);
 });
-passport.deserializeUser(function (obj, done) {
+passport.deserializeUser(function(obj, done) {
   done(null, obj);
-})
+});
 
 app.get('/auth/github',
-  passport.authenticate('github', { scope: [ 'user:email' ] }));
+  passport.authenticate('github', {
+    scope: ['user:email']
+  }));
 
 app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', {
+    failureRedirect: '/login'
+  }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
@@ -129,12 +172,15 @@ app.post('/comment', function (req, res) {
 
 // middleware
 
-app.get('/comments', function (req, res) {
-	Post.find({_id: req.body.postId}, function(err, post){
-		if(err) throw err;
-		res.send(post.comment);
-	});
+app.get('/comments', function(req, res) {
+  Post.find({
+    _id: req.body.postId
+  }, function(err, post) {
+    if (err) throw err;
+    res.send(post.comment);
+  });
 });
+
 
 app.post('/post', function (req, res) {
 		var newpost = new Post({
@@ -187,7 +233,7 @@ app.get('/posts', function (req, res) {
   	if(err) throw err;
   	console.log(posts);
   	res.send(posts);
-  });
+  }).sort({date: 'descending'});
 });
 
 // app.get('/fb_users', function (req, res) {
@@ -197,6 +243,6 @@ app.get('/posts', function (req, res) {
 // app.post('/upvote', function (req, res) {
 
 // });
-
-
+app.use(express.static('client'));
 app.listen(process.env.PORT || 3000);
+module.exports = app;

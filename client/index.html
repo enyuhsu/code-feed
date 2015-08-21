@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <base href="/">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeFeed</title>
+  <meta name= "viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <base href="/">
+</head>
+  <script src="libs/angular/angular.js"></script>
+  <script src="libs/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/controllers/home.ctrl.js"></script>
+  <script type="text/javascript" src="js/controllers/comment.ctrl.js"></script>
+  <script type="text/javascript" src="js/controllers/login.ctrl.js"></script>
+  <script type="text/javascript" src="js/controllers/post.ctrl.js"></script>
 
-    <!-- JAVASCRIPTS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="libs/angular/angular.js"></script>
-    <script src="libs/angular-ui-router/release/angular-ui-router.js"></script>
-
-
-    <script src="app.js"></script>
-    <!-- CONTROLLERS -->
-    <script type="text/javascript" src="js/controllers/home.ctrl.js"></script>
-    <script type="text/javascript" src="js/controllers/comment.ctrl.js"></script>
-    <script type="text/javascript" src="js/controllers/login.ctrl.js"></script>
-    <script type="text/javascript" src="js/controllers/post.ctrl.js"></script>
-
-    <title>CodeFeed</title>
-
-  </head>
-
-  <body ng-app = 'app' >
+<body ng-app = 'app' >
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse">
       <div class="container">
@@ -43,13 +36,5 @@
 
     </nav>
     <ui-view> <!--  keep the rest of the page like this and add in the partials here  -->
-
-
-    <!-- put the posts here -->
-
-
-
-  </body>
-
-
+</body>
 </html>
