@@ -31,7 +31,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
-//	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
 });
 
@@ -74,7 +74,7 @@ app.post('/login',
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    callbackURL: "http://ancient-tundra-6889.herokuapp.com/"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -170,6 +170,7 @@ app.post('/post', function (req, res) {
 app.get('/posts', function (req, res) {
   Post.find({}, function(err,posts){
   	if(err) throw err;
+  	console.log(posts);
   	res.send(posts);
   });
 });

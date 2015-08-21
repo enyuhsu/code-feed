@@ -1,4 +1,15 @@
-<div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
+<div class="post" ng-repeat="post_msg in homeCtrl.posts">
+	<h4>{{post_msg.title}}</h4>
+	{{post_msg.post}} <br>
+	<a href={{post_msg.url}} target="_blank">{{post_msg.url}}</a>
+</div>
+
+
+
+
+
+
+<!-- <div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
 Title: <a ng-href="{{post.url}}">{{post.title}}</a><br/>
 Post:{{post.posts}}<br/>
 <div style="float:left"  ng-model = "homeCtrl.upcounter">{{homeCtrl.upcounter}}</div>
@@ -9,7 +20,7 @@ Post:{{post.posts}}<br/>
 
 <div style="float:left" ng-click = "homeCtrl.downVote()" class = "glyphicon glyphicon-chevron-down"> </div><br/>
 <a style="float:right" style= "float:right" id="comments" ui-sref="comments">comments</a><br/>
- </div>
+ </div> -->
 
 
 <!--
