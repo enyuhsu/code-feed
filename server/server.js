@@ -32,7 +32,8 @@ var PostSchema = new Schema({
 	url: {type: String, required: true},
 	post: {type: String, required: true},
 	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
+  date: { type: Date, default: Date.now },
+	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId, date:{ type: Date, default: Date.now } }]
 });
 
 
@@ -119,7 +120,8 @@ app.post('/comment', function (req, res) {
   	if(err) throw err;
   	post.comment.push({
   		body: req.body.body,
-  		by: req.body.username
+  		by: req.body.username,
+      date: req.body.date
   	});
   });
 });
@@ -138,8 +140,9 @@ app.post('/post', function (req, res) {
 		var newpost = new Post({
 				title: req.body.title,
 				url: req.body.url,
-				post: req.body.post
+				post: req.body.post,
 	//			postedBy: req.body.username
+        date: req.body.date
 		});
 		newpost.save(function(){
 			res.status(200).end();
