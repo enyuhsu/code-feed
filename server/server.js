@@ -1,173 +1,103 @@
-var express = require('express');
-var app = express();
-var Sequelize = require('sequelize');
-var pg = require('pg');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
+var express = require('express'),
+    app = express(),
+    path = require('path'),
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    Schema = mongoose.Schema,
+    http = require('http'),
+    array = [];
 
+mongoose.connect('mongodb://Thlapath:meubanks1@ds059672.mongolab.com:59672/recoddit', function(err){
+  if(err){return err;}
+  console.log("connected to Db");
+});
+
+var UserSchema = new Schema({
+	email:{type: String , required:true , index: {unique: true}},
+	username:{type: String, required:true, index: {unique: true}},
+	password: {type: String, required: true},
+	access_token: {type: String}
+});
+
+var PostSchema = new Schema({
+	title: {type: String, required: true},
+	url: {type: String, required: true},
+	post: {type: String, required: true},
+	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User' required: true},
+	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]//should reference comment id
+});
+
+// var CommentSchema = new Schema({
+// 	comment: {type: String, required: true},
+// 	date: {type: date, required: true},
+
+// });
+
+var User = mongoose.model("User", UserSchema);
+var Post = mongoose.model("Post", PostSchema);
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// app.post('/fb_login', function(req,res){
+// 	User
+// 	  .findOrCreate({
+// 	  	where : {
+// 	  		username : req.body.username
+// 	  	},
+// 	  	defaults:{
+// 	  		usertoken : req.body.usertoken
+// 	  	}
+// 	  }).spread(function(user,created){
+// 	  	user.updateAttributes({
+//       		usertoken : req.body.usertoken
+//       	});
+// 	  });
+// });
 
-//var DATABASE_URL = 'postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu';
-/**
-pg.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
-*/
-
-
-var sequelize = new Sequelize('postgres://ifxtabnfjinbbw:pGvSheCDwrimLtiqpbBm-YAekP@ec2-54-197-230-210.compute-1.amazonaws.com:5432/ddegi6ju8v9huu');
-
-
-
-var User = sequelize.define('users', {
-	username: {
-		type: Sequelize.STRING,
-		field: 'username'
-	},
-	password: {
-		type: Sequelize.STRING,
-		field: 'password'
-	},
-	usertoken: {
-		type: Sequelize.STRING,
-		field: 'usertoken'
-	},
-	email: {
-		type: Sequelize.STRING,
-		field: 'email'
-	}
-	}, {
-	freezeTableName: true
-
-});
-
-var Post =  sequelize.define('post',{
-	title: {
-		type: Sequelize.STRING,
-		field: 'title'
-	},
-	url: {
-		type: Sequelize.STRING,
-		field: 'url'
-	},
-	posts: {
-		type: Sequelize.STRING,
-		field: 'posts'
-	},
-	username: {
-		type : Sequelize.STRING,
-		field: 'username'
-	}
-  },{
-
-	freezeTableName: true
-});
-
-var Upvote =  sequelize.define('upvote',{
-  title: {
-    type: Sequelize.INTEGER,
-    field: 'upvote'
-  }
-  }, {
-
-  freezeTableName: true
-});
-
-
-var Comment = sequelize.define('comment', {
-  comments:{
-    type: Sequelize.STRING,
-    field:'comments'
-  }
-    },{
-   freezeTableName: true
-});
-
-User.sync();
-Post.sync();
-Comment.sync();
-Upvote.sync();
-
-User.hasMany(Post, {as: 'posts'});
-User.hasMany(Comment,{as: 'comments'});
-Post.hasMany(Comment, {as: 'comments'});
-Post.belongsTo(User);
-// Comments.belongsToMany()
-
-
-
-
-
-app.post('/fb_login', function(req,res){
-	User
-	  .findOrCreate({
-	  	where : {
-	  		username : req.body.username
-	  	},
-	  	defaults:{
-	  		usertoken : req.body.usertoken
-	  	}
-	  }).spread(function(user,created){
-	  	user.updateAttributes({
-      		usertoken : req.body.usertoken
-      	});
-	  });
-});
-
-app.get('/user/:id', function (req, res) {
-  User
-    .findById(id)
-    .then(function (user) {
-      res.send(user);
-    })
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
-});
+// app.get('/user/:id', function (req, res) {
+//   User
+//     .findById(id)
+//     .then(function (user) {
+//       res.send(user);
+//     })
+//     .catch(function (error) {
+//       if (error) {
+//         res.send(error);
+//       }
+//     });
+// });
 
 app.post('/comment', function (req, res) {
-  console.log(req.body);
-  Comment
-    .create(req.body)
-    .then(function(comment){
-      res.send(comment);
-    })
-    .catch(function (error) {
-      if (error) {
-        res.send(error);
-      }
-    });
+  Post.findOneAndUpdate({_id: req.body.postId}, function(err,post){
+  	if(err) throw err;
+  	post.comment.push({
+  		body: req.body.body,
+  		by: req.body.username
+  	});
+  });
 });
 
 // middleware
 
-app.get('/com', function (req, res) {
-  Comment
-    .findAll()
-    .then(function (comments) {
-      res.send(comments);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
+app.get('/comments', function (req, res) {
+	Post.find({_id: req.body.postId}, function(err, post){
+		if(err) throw err;
+		res.send(post.comment);
+	});
 });
 
 app.post('/post', function (req, res) {
-	// query database where username = req.body.username and retrieve usertoken
-	// if usertoken !== req.cookies.access_token
+		var newpost = new Post({
+				title: req.body.title,
+				url: req.body.url,
+				post: req.body.post,
+				postedBy: req.body.username
+		});
+		newpost.save(function(){
+			console.log("saved a new post");
+		});
 	// console.log("Body: "+req.body);
 	// if(!req.cookies.username){
 	// 	console.log("Cookies don't exist: "+req.cookies.username);
@@ -199,48 +129,23 @@ app.post('/post', function (req, res) {
 	// 			      res.send(error);
 	// 			    }
 	// 			  });
-
-			Post
-			.create(req.body)
-			.then(function(post){	res.send(post);	})
-			.catch(function(error){ if(error) throw error;});
-
 });
 
 
 app.get('/posts', function (req, res) {
-  Post
-    .findAll()
-    .then(function (posts) {
-      res.send(posts);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
+  Post.find({}, function(err,posts){
+  	if(err) throw err;
+  	res.send(posts);
+  });
 });
 
-app.get('/fb_users', function (req, res) {
-  User
-    .findAll()
-    .then(function (users) {
-      res.send(users);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
-});
+// app.get('/fb_users', function (req, res) {
 
-app.post('/upvote', function (req, res) {
-  console.log(req.body);
-  Upvote
-    .create(req.body)
-    .then(function(upvote) {
-      res.send(upvote);
-    })
-    .catch(function (error) {
-      res.send(error);
-    });
-});
+// });
+
+// app.post('/upvote', function (req, res) {
+
+// });
 
 
 app.listen(process.env.PORT || 3000);
