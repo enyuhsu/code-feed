@@ -8,7 +8,7 @@ var express = require('express'),
     http = require('http'),
     array = [];
 
-mongoose.connect('mongodb://Thlapath:meubanks1@ds059672.mongolab.com:59672/recoddit', function(err){
+mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
   if(err){return err;}
   console.log("connected to Db");
 });
@@ -24,7 +24,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
-	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User' required: true},
+	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]//should reference comment id
 }); 
 
