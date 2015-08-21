@@ -31,7 +31,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
-	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
 });
 
@@ -126,7 +126,7 @@ app.post('/post', function (req, res) {
 		var newpost = new Post({
 				title: req.body.title,
 				url: req.body.url,
-				post: req.body.post,
+				post: req.body.post
 	//			postedBy: req.body.username
 		});
 		newpost.save(function(){
@@ -170,6 +170,7 @@ app.post('/post', function (req, res) {
 app.get('/posts', function (req, res) {
   Post.find({}, function(err,posts){
   	if(err) throw err;
+  	console.log(posts);
   	res.send(posts);
   });
 });
