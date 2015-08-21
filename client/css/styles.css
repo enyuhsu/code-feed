@@ -25,6 +25,9 @@
 .btn-social:hover {
   background: #ccc;
 }
+.fa-github {
+	padding-right: 10px;
+}
 .form-style-8 {
   font-family: 'Open Sans Condensed', arial, sans;
   width: 800px;
