@@ -61,6 +61,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
+	date: { type: Date, default: Date.now },
 	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
 });
@@ -219,7 +220,7 @@ app.get('/posts', function (req, res) {
   	if(err) throw err;
   	console.log(posts);
   	res.send(posts);
-  });
+  }).sort({date: 'descending'});
 });
 
 // app.get('/fb_users', function (req, res) {
