@@ -27,7 +27,7 @@ angular.module('app', ['ui.router'])
       controller: 'LoginController',
       controllerAs: 'loginCtrl'
     });
-    $stateProvider.otherwise('/');
+//    $stateProvider.otherwise('/');
    $locationProvider.html5Mode({
       enabled: true
    });

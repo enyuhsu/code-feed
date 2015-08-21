@@ -76,11 +76,24 @@ passport.use(new GitHubStrategy({
     clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL: "https://ancient-tundra-6889.herokuapp.com/"
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
+	function(accessToken, refreshToken, profile, done){
+		console.log('accessToken ' + accessToken);
+		console.log("refresh token " + refreshToken);
+		console.log("profile " + profile);
+		console.log('done ' + done);
+
+		// var newuser = new User({
+		//
+		// })
+
+
+	}
+  // function(accessToken, refreshToken, profile, done) {
+  //   User.findOrCreate({ githubId: profile.id }, function (err, user) {
+  //     return done(err, user);
+	// 		console.log(user);
+  //   });
+  // }
 ));
 
 passport.serializeUser(function (user, done) {
