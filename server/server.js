@@ -14,6 +14,7 @@ var express = require('express'),
 var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
 var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d"
 
+
 mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
   if(err){return err;}
   console.log("connected to Db");
@@ -31,8 +32,9 @@ var PostSchema = new Schema({
 	url: {type: String, required: true},
 	post: {type: String, required: true},
 	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]//should reference comment id
+	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
 });
+
 
 // var CommentSchema = new Schema({
 // 	comment: {type: String, required: true},
@@ -45,7 +47,6 @@ var Post = mongoose.model("Post", PostSchema);
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
 //Oauth info
 app.use(passport.initialize());
 app.use(passport.session());
@@ -121,19 +122,17 @@ app.get('/comments', function (req, res) {
 });
 
 app.post('/post', function (req, res) {
+	console.log(req.body);
 		var newpost = new Post({
 				title: req.body.title,
 				url: req.body.url,
 				post: req.body.post,
-				postedBy: req.body.username
+	//			postedBy: req.body.username
 		});
 		newpost.save(function(){
+			res.status(200).end();
 			console.log("saved a new post");
-		})
-
-
-	//query database where username = req.body.username and retrieve usertoken
-	//if usertoken !== req.cookies.access_token
+		});
 	// console.log("Body: "+req.body);
 	// if(!req.cookies.username){
 	// 	console.log("Cookies don't exist: "+req.cookies.username);
@@ -165,10 +164,6 @@ app.post('/post', function (req, res) {
 	// 			      res.send(error);
 	// 			    }
 	// 			  });
-	// 		});
-
-
- //  }
 });
 
 
