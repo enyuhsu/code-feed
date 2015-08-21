@@ -58,35 +58,11 @@ var UserSchema = new Schema({
 });
 
 var PostSchema = new Schema({
-<<<<<<< HEAD
-  title: {
-    type: String,
-    required: true
-  },
-  url: {
-    type: String,
-    required: true
-  },
-  post: {
-    type: String,
-    required: true
-  },
-  postedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  comment: [{
-    body: "string",
-    by: mongoose.Schema.Types.ObjectId
-  }]
-=======
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
 	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
->>>>>>> 365ab7d58109c1e2785cb7b9221505733cbb7357
 });
 
 // var CommentSchema = new Schema({
@@ -191,58 +167,7 @@ app.get('/comments', function(req, res) {
   });
 });
 
-<<<<<<< HEAD
-app.post('/post', function(req, res) {
-  console.log(req.body);
-  var newpost = new Post({
-    title: req.body.title,
-    url: req.body.url,
-    post: req.body.post,
-    //			postedBy: req.body.username
-  });
-  newpost.save(function() {
-    res.status(200).end();
-    console.log("saved a new post");
-  });
-  // console.log("Body: "+req.body);
-  // if(!req.cookies.username){
-  // 	console.log("Cookies don't exist: "+req.cookies.username);
-  // 	//res.send('Please log in before posting');
-  // 	res.error();
-  // 	res.end();
-  // } else {
-  // 	console.log("Cookies exist: "+req.cookies.username);
-  // 	User.find({username: req.cookies.username})
-  // 		.then(function(user){
-  // 			if(!user){
-  // 				res.send('Please log in before posting');
-  // 			}
-  // 			else if(req.cookies.access_token !== user.usertoken){
-  // 				console.log("Invalid token");
-  // 				res.error();
-  // 				res.end();
-  // 			}
-  // 			req.body.username = req.cookies.username;
-  // 			console.log(req.body);
-  // 			Post
-  // 			  .create(req.body)
-  // 			  .then(function(post){
-  // 			  	res.send(post);
-  // 			  	//res.send('post added');
-  // 			  })
-  // 			  .catch(function (error) {
-  // 			    if (error) {
-  // 			      res.send(error);
-  // 			    }
-  // 			  });
-});
 
-
-app.get('/posts', function(req, res) {
-  Post.find({}, function(err, posts) {
-    if (err) throw err;
-    res.send(posts);
-=======
 app.post('/post', function (req, res) {
 	console.log(req.body);
 		var newpost = new Post({
@@ -294,7 +219,6 @@ app.get('/posts', function (req, res) {
   	if(err) throw err;
   	console.log(posts);
   	res.send(posts);
->>>>>>> 365ab7d58109c1e2785cb7b9221505733cbb7357
   });
 });
 
