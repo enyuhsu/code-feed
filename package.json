@@ -1,16 +1,13 @@
 {
-  "name": "code-feed",
+  "name": "recoddit",
   "version": "1.0.0",
-  "description": "Team CodeFeed: Arash Dai, Ken Kaiser, Allen Mackey, Ben Tan",
+  "description": "Team: Anshu Siripurapu, Enyu Hsu, Matt Eubanks, Rouzbeh Sarrafieh, Samara Hernandez",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.13.3",
     "cookie-parser": "^1.3.5",
     "express": "^4.13.3",
-    "morgan": "^1.6.1",
-    "pg": "4.4.1",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^3.5.1",
+    "mongoose": "^4.0.7",
     "passport-github2": "^0.1.9",
     "passport-local": "^1.0.0"
   },
@@ -19,10 +16,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "dev": "nodemon server/server.js"
+    
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pllx/code-feed.git"
+  },
+  "engines":{
+    "node": "0.12.x"
   },
   "author": "",
   "license": "ISC",
