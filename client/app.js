@@ -1,10 +1,9 @@
-angular.module('app', ['ui.router'])
-.config(function($stateProvider, $urlRouterProvider) {
-
-
+(function(){angular.module('app', ['ui.router'])
+.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+  
   $stateProvider
     .state('home', {
-      url: '/home',
+      url: '/',
       templateUrl: 'partials/home.html',
       controller: 'HomeController',
       controllerAs: 'homeCtrl'
@@ -26,9 +25,13 @@ angular.module('app', ['ui.router'])
       templateUrl: 'partials/login.html',
       controller: 'LoginController',
       controllerAs: 'loginCtrl'
+    })
+    $urlRouterProvider.otherwise('/');
+    $locationProvider.html5Mode({
+       enabled: true
     });
-
-});
+  });
+})();
 
 
 
