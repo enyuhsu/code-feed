@@ -220,7 +220,7 @@ app.get('/posts', function (req, res) {
   	if(err) throw err;
   	console.log(posts);
   	res.send(posts);
-  }).sort({date: 'descending'});
+  }).sort({date: -1});
 });
 
 // app.get('/fb_users', function (req, res) {
