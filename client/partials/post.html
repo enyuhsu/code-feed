@@ -1,0 +1,8 @@
+<div class="form-style-8">
+  <form ng-submit='postCtrl.submit()'>
+    <input type="text" name="title" placeholder="Title" maxLength="90" ng-model ="postCtrl.post_msg.title"/>
+    <textarea placeholder="Content" ng-model ="postCtrl.post_msg.post"></textarea>
+    <input type="url" name="url" placeholder="URL"  ng-model ="postCtrl.post_msg.url"/>
+    <input type="submit" value="Submit" />
+  </form>
+</div>
