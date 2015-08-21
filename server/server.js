@@ -6,7 +6,13 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     Schema = mongoose.Schema,
     http = require('http'),
-    array = [];
+    array = [],
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    GitHubStrategy = require('passport-github2').Strategy;
+
+	var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
+	var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d";
 
 mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
   if(err){return err;}
@@ -25,6 +31,10 @@ var PostSchema = new Schema({
 	url: {type: String, required: true},
 	post: {type: String, required: true},
 	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
+});
+
+
 // var CommentSchema = new Schema({
 // 	comment: {type: String, required: true},
 // 	date: {type: date, required: true},
@@ -36,7 +46,6 @@ var Post = mongoose.model("Post", PostSchema);
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
 //Oauth info
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,8 +71,8 @@ app.post('/login',
 
 //github login
 passport.use(new GitHubStrategy({
-    clientID: fe21f1ad7bc9146e6015,
-    clientSecret: cab8552b2ca3cc736b7c0a0fe2b49a672a38400d,
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL: "http://127.0.0.1:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
