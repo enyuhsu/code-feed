@@ -200,17 +200,11 @@ app.post('/post', function (req, res) {
 	// 			    }
 	// 			  });
 
-			Post.create(req.body).then(function(post){
-				res.send(post);
-			}).catch(function(error){
-				if(error) throw error;
-			})
+			Post
+			.create(req.body)
+			.then(function(post){	res.send(post);	})
+			.catch(function(error){ if(error) throw error;});
 
-
-			});
-
-
-  
 });
 
 
