@@ -24,10 +24,7 @@ var PostSchema = new Schema({
 	title: {type: String, required: true},
 	url: {type: String, required: true},
 	post: {type: String, required: true},
-	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]//should reference comment id
-});
-
+	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
 // var CommentSchema = new Schema({
 // 	comment: {type: String, required: true},
 // 	date: {type: date, required: true},
@@ -40,34 +37,59 @@ app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// app.post('/fb_login', function(req,res){
-// 	User
-// 	  .findOrCreate({
-// 	  	where : {
-// 	  		username : req.body.username
-// 	  	},
-// 	  	defaults:{
-// 	  		usertoken : req.body.usertoken
-// 	  	}
-// 	  }).spread(function(user,created){
-// 	  	user.updateAttributes({
-//       		usertoken : req.body.usertoken
-//       	});
-// 	  });
-// });
+//Oauth info
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.get('/user/:id', function (req, res) {
-//   User
-//     .findById(id)
-//     .then(function (user) {
-//       res.send(user);
-//     })
-//     .catch(function (error) {
-//       if (error) {
-//         res.send(error);
-//       }
-//     });
-// });
+//local login
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+
+//github login
+passport.use(new GitHubStrategy({
+    clientID: fe21f1ad7bc9146e6015,
+    clientSecret: cab8552b2ca3cc736b7c0a0fe2b49a672a38400d,
+    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+})
+
+app.get('/auth/github',
+  passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+
 
 app.post('/comment', function (req, res) {
   Post.findOneAndUpdate({_id: req.body.postId}, function(err,post){
@@ -78,6 +100,7 @@ app.post('/comment', function (req, res) {
   	});
   });
 });
+
 
 // middleware
 
