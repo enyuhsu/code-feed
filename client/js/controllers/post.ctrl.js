@@ -4,12 +4,13 @@ angular
     HomeController.$inject =  ['$http'];
 
     function PostController($http) {
-      var temp = {};
+      this.post_msg = {};
       this.submit= function(){
         var that = this;
-      $http.post('/post', this.temp).success(function(data) {
-        console.log(data);
-      });
+        $http.post('/post', that.post_msg).success(function(data,status) {
+          console.log(status);
+          that.post_msg = {};
+        });
 
       }
     }
