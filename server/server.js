@@ -11,13 +11,10 @@ var express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     GitHubStrategy = require('passport-github2').Strategy;
 
-<<<<<<< HEAD
-=======
 var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
-var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d"
+var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d";
 
 
->>>>>>> ddb0dd85179f146d46e9344dd848bfe0ff99783a
 mongoose.connect('mongodb://Thlapath:codefeed@ds059672.mongolab.com:59672/recoddit', function(err){
   if(err){return err;}
   console.log("connected to Db");
@@ -35,14 +32,9 @@ var PostSchema = new Schema({
 	url: {type: String, required: true},
 	post: {type: String, required: true},
 	postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-<<<<<<< HEAD
-	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]//should reference comment id
-}); 
-=======
 	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
 });
 
->>>>>>> ddb0dd85179f146d46e9344dd848bfe0ff99783a
 
 // var CommentSchema = new Schema({
 // 	comment: {type: String, required: true},
