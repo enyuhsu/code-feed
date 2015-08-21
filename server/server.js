@@ -122,7 +122,6 @@ app.get('/comments', function (req, res) {
 });
 
 app.post('/post', function (req, res) {
-	console.log(req.body);
 		var newpost = new Post({
 				title: req.body.title,
 				url: req.body.url,
