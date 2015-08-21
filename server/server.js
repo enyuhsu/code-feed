@@ -166,39 +166,47 @@ app.get('/com', function (req, res) {
 });
 
 app.post('/post', function (req, res) {
-	//query database where username = req.body.username and retrieve usertoken
-	//if usertoken !== req.cookies.access_token
-	console.log("Body: "+req.body);
-	if(!req.cookies.username){
-		console.log("Cookies don't exist: "+req.cookies.username);
-		//res.send('Please log in before posting');
-		res.error();
-		res.end();
-	} else {
-		console.log("Cookies exist: "+req.cookies.username);
-		User.find({username: req.cookies.username})
-			.then(function(user){
-				if(!user){
-					res.send('Please log in before posting');
-				}
-				else if(req.cookies.access_token !== user.usertoken){
-					console.log("Invalid token");
-					res.error();
-					res.end();
-				}
-				req.body.username = req.cookies.username;
-				console.log(req.body);
-				Post
-				  .create(req.body)
-				  .then(function(post){
-				  	res.send(post);
-				  	//res.send('post added');
-				  })
-				  .catch(function (error) {
-				    if (error) {
-				      res.send(error);
-				    }
-				  });
+	// query database where username = req.body.username and retrieve usertoken
+	// if usertoken !== req.cookies.access_token
+	// console.log("Body: "+req.body);
+	// if(!req.cookies.username){
+	// 	console.log("Cookies don't exist: "+req.cookies.username);
+	// 	//res.send('Please log in before posting');
+	// 	res.error();
+	// 	res.end();
+	// } else {
+	// 	console.log("Cookies exist: "+req.cookies.username);
+	// 	User.find({username: req.cookies.username})
+	// 		.then(function(user){
+	// 			if(!user){
+	// 				res.send('Please log in before posting');
+	// 			}
+	// 			else if(req.cookies.access_token !== user.usertoken){
+	// 				console.log("Invalid token");
+	// 				res.error();
+	// 				res.end();
+	// 			}
+	// 			req.body.username = req.cookies.username;
+	// 			console.log(req.body);
+	// 			Post
+	// 			  .create(req.body)
+	// 			  .then(function(post){
+	// 			  	res.send(post);
+	// 			  	//res.send('post added');
+	// 			  })
+	// 			  .catch(function (error) {
+	// 			    if (error) {
+	// 			      res.send(error);
+	// 			    }
+	// 			  });
+
+			Post.create(req.body).then(function(post){
+				res.send(post);
+			}).catch(function(error){
+				if(error) throw error;
+			})
+
+
 			});
 
 
