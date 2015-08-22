@@ -15,7 +15,7 @@
       controllerAs: 'postCtrl'
     })
     .state('comments', {
-      url: '/comments',
+      url: '/comments/:postId',
       templateUrl: 'partials/comments.html',
       controller: 'CommentController',
       controllerAs: 'commentCtrl'

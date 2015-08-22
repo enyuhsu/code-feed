@@ -1,13 +1,16 @@
 <div class="post">
-  POST GETS DISPLAYED HERE
+  <h4>{{commentCtrl.post_msg.title}}</h4>
+	{{commentCtrl.post_msg.post}} <br>
+	<a href={{commentCtrl.post_msg.url}} target="_blank">{{commentCtrl.post_msg.url}}</a> <br>
 </div>
-
-<div class="comments" >
-  ALL COMMENTS THAT BELONG TO THE POST BELONG HERE
-</div>
-
 
 <form ng-submit='commentCtrl.userComment()'>
-<textarea type="text" placeholder="Comment Here" ng-model="commentCtrl.comment.comment" rows=8 cols=60></textarea>
-<input type="submit" id="submit" value="Submit" />
+	<input id="commentBox" type="text" placeholder="Comment Here" ng-model="commentCtrl.newComment" rows=8 cols=60></input> <br>
+	<input id="commentSubmitBtn" type="submit" id="submit" value="Submit" />
 </form>
+<div>
+	<h4 id="commentHeader">Comments</h4>
+	<div class="comments" ng-repeat="comment in commentCtrl.post_msg.comment">
+  	{{comment.body}}
+  </div>
+</div>

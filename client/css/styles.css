@@ -1,7 +1,7 @@
 .post {
   font-family: 'Open Sans Condensed', arial, sans;
   width: 1000px;
-  padding: 15px;
+  padding: 20px 15px;
   background: #FFFFFF;
   margin: 20px auto;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -102,6 +102,9 @@
   background-color: #34CACA;
 }
 
+#commentLink {
+  float:right;
+}
 #commentBtn {
     background:none;
     border:none;
@@ -109,6 +112,35 @@
     padding:0;
     width: 18px;
     height: 15px;
-    float:right;
     content:url("../partials/assets/commentIcon.png");
+}
+
+#commentBox {
+  resize: vertical;
+  width: 500px;
+  margin: 20px 80px 0;
+}
+
+#commentSubmitBtn {
+  margin: 20px 80px 5px;
+}
+
+.comments {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 1000px;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  margin: 0 80px 10px;
+  font: 12px Arial, Helvetica, sans-serif;
+  height: 35px;
+}
+
+#commentHeader {
+  margin: 20px 80px;
 }

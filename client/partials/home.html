@@ -2,7 +2,12 @@
 	<h4>{{post_msg.title}}</h4>
 	{{post_msg.post}} <br>
 	<a href={{post_msg.url}} target="_blank">{{post_msg.url}}</a> <br>
-	<a href="/posts"><img id="commentBtn"></a>
+	<a id="commentLink" href="/comments/{{post_msg._id}}">
+		<img id="commentBtn" /> 
+		<font color="black">
+			{{post_msg.comment.length}}
+		</font>
+	</a>
 </div>
 
 
