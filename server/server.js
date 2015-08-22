@@ -134,7 +134,7 @@ app.post('/signup', function(req, res, next){
     });
     user.save();
     res.status(200);
-    res.end();
+    res.send('/');
   })
 });
 
@@ -150,6 +150,7 @@ app.post('/login', function(req, res){
         res.send(data.access_token);
       }
     });
+    res.end();
   })
 });
 

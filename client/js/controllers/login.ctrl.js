@@ -4,8 +4,8 @@ angular
  .service("$login", function() {
    this.loggedIn = false;
  });
-LoginController.$inject = ['$scope', '$http', '$login', '$location'];
-function LoginController($scope, $http, $login, $location) {
+LoginController.$inject = ['$scope', '$http', '$login', '$location', '$state'];
+function LoginController($scope, $http, $login, $location, $state) {
   $scope.user = {};
 
   $scope.signUp = function() {
@@ -15,6 +15,7 @@ function LoginController($scope, $http, $login, $location) {
     	this.user.email = "";
     	this.user.password = "";
     });
+    $state.go('home');
   }
 
   $scope.login = function() {
@@ -23,5 +24,6 @@ function LoginController($scope, $http, $login, $location) {
        that.user.email = '';
        that.user.password = '';
     });
+    $state.go('home');
   }
 }
