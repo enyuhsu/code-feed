@@ -10,7 +10,7 @@ angular
 
       $http.get('/posts').success(function(data){
         self.posts = data;
-        console.log(data);
+        // console.log(data);
       });
 
       // this.submit = function () {

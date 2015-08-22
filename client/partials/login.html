@@ -1,19 +1,29 @@
-<h3>Login Please</h3>
+<h1>New to Recoddit? Sign up!</h1>
 
-<form action="" ng-controller="LoginController as loginCtrl">
-<!--   <div class="form-group">
+<form action="" ng-controller="LoginController as loginCtrl" ng-submit="signUp()">
+  <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+    <input type="email" ng-model="user.email" class="form-control" id="exampleInputEmail1" placeholder="Email">
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div> -->
-  <a href = "http://localhost:3000/auth/github">github</a>
-  <button type="submit" class="btn btn-default">Submit</button>
+    <input type="password" ng-model="user.password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <button type="submit" >SignUP</button>
+  </div>
+
+
+</form>
+
+<h1>Already a member? Well sign in!</h1>
+
+<form action="" ng-controller="LoginController as loginCtrl" ng-submit="login()">
   <div class="form-group">
-      <button class="btn btn-block btn-social btn-github" ng-click="ghLogin()">
-        <i class="fa fa-github"></i>Sign in with GitHub
-      </button>
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" ng-model="user.email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" ng-model="user.password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <button type="submit">LogIN</button>
   </div>
 </form>
