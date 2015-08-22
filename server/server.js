@@ -158,7 +158,7 @@ app.get('/auth/github/callback',
   });
 
 
-app.post('/comment', function (req, res) {
+app.post('/comments', function (req, res) {
   Post.findOneAndUpdate({_id: req.body.postId}, function(err,post){
   	if(err) throw err;
   	post.comment.push({
