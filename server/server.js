@@ -33,6 +33,9 @@ app.get('/post', function(req, res) {
 app.get('/oauth', function(req, res) {
     res.sendFile(path.join(__dirname, '/../client/index.html'));
 });
+app.get('/comments/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/../client/index.html'));
+});
 var UserSchema = new Schema({
   email: {
     type: String,
@@ -63,7 +66,7 @@ var PostSchema = new Schema({
 	post: {type: String, required: true},
 	date: { type: Date, default: Date.now },
 	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-	comment: [{body: "string", by: mongoose.Schema.Types.ObjectId}]
+	comment: [{body: "string", by: "string"}]
 });
 
 // var CommentSchema = new Schema({
@@ -145,26 +148,30 @@ app.get('/auth/github/callback',
 
 
 app.post('/comment', function(req, res) {
-  Post.findOneAndUpdate({
+  Post.findOne({
     _id: req.body.postId
   }, function(err, post) {
     if (err) throw err;
+    console.log(post);
     post.comment.push({
-      body: req.body.body,
-      by: req.body.username
+      body: req.body.comment,
+      by: ""
     });
+    post.save();
+    console.log("comment saved");
+    res.status(200).end();
   });
 });
 
 
 // middleware
 
-app.get('/comments', function(req, res) {
-  Post.find({
+app.post('/comments', function(req, res) {
+  Post.findOne({
     _id: req.body.postId
   }, function(err, post) {
     if (err) throw err;
-    res.send(post.comment);
+    res.send(post);
   });
 });
 
