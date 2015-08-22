@@ -1,8 +1,13 @@
+<div class="post">
+  POST GETS DISPLAYED HERE
+</div>
+
+<div class="comments" >
+  ALL COMMENTS THAT BELONG TO THE POST BELONG HERE
+</div>
+
+
 <form ng-submit='commentCtrl.userComment()'>
-<textarea type="text" placeholder="Comment Here" ng-model="commentCtrl.comment.comments" rows=8 cols=60></textarea>
+<textarea type="text" placeholder="Comment Here" ng-model="commentCtrl.comment.comment" rows=8 cols=60></textarea>
 <input type="submit" id="submit" value="Submit" />
 </form>
-
-<div class="comment" ng-repeat="comment in commentCtrl.commented | orderBy: '-createdAt'" >
-Comment: <a>{{comment.comments}}</a><br/>
-
