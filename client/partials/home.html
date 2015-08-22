@@ -1,54 +1,13 @@
 <div class="post" ng-repeat="post_msg in homeCtrl.posts">
 	<h4>{{post_msg.title}}</h4>
-	{{post_msg.post}} <br>
-	<a href={{post_msg.url}} target="_blank">{{post_msg.url}}</a> <br>
+	{{post_msg.post}}
+	<br>
+	<a href={{post_msg.url}} target="_blank">{{post_msg.url}}</a>
+	<br>
 	<a id="commentLink" href="/comments/{{post_msg._id}}">
-		<img id="commentBtn" /> 
+		<img id="commentBtn" />
 		<font color="black">
 			{{post_msg.comment.length}}
 		</font>
 	</a>
 </div>
-
-
-
-
-
-
-<!-- <div class="post" ng-repeat="post in homeCtrl.posted | orderBy: '-createdAt'"  >
-Title: <a ng-href="{{post.url}}">{{post.title}}</a><br/>
-Post:{{post.posts}}<br/>
-<div style="float:left"  ng-model = "homeCtrl.upcounter">{{homeCtrl.upcounter}}</div>
-
-<div style="float:left" ng-click = "homeCtrl.upVote()" class = "glyphicon glyphicon-chevron-up"> </div>
-
-<div style="float:left" ng-model = "homeCtrl.downcounter">{{homeCtrl.downcounter}}</div>
-
-<div style="float:left" ng-click = "homeCtrl.downVote()" class = "glyphicon glyphicon-chevron-down"> </div><br/>
-<a style="float:right" style= "float:right" id="comments" ui-sref="comments">comments</a><br/>
- </div> -->
-
-
-<!--
- <input  style= 'float: left' type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br/>
-<div>
-  <div style= 'float: left' class="check-element animate-hide" ng-show="checked">
-   <form ng-submit="homeCtrl.userComment()">Comments
-		<textarea type="text" placeholder="comment here" ng-model="homeCtrl.comment.comments" rows=8 cols=60> </textarea>   
-	</form>
-</div>
-<div>
-  <div style= 'float: left' class="check-element animate-hide" ng-hide="checked">
-    
-  </div>
-</div>
-
-
-
-
-
- 
-<a  ng-href= link to comments page  > comments </a> 
-
-
-
