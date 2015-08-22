@@ -170,8 +170,6 @@ app.post('/comments', function (req, res) {
 });
 
 
-// middleware
-
 app.get('/comments', function(req, res) {
   Post.find({
     _id: req.body.postId
@@ -233,7 +231,7 @@ app.get('/posts', function (req, res) {
   	if(err) throw err;
   	console.log(posts);
   	res.send(posts);
-  }).sort({date: -1});
+  }).sort({date: 'descending'});
 });
 
 // app.get('/fb_users', function (req, res) {
