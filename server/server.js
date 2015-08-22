@@ -10,7 +10,7 @@ var express = require('express'),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   GitHubStrategy = require('passport-github2').Strategy;
-  
+
 var GITHUB_CLIENT_ID = "fe21f1ad7bc9146e6015";
 var GITHUB_CLIENT_SECRET = "cab8552b2ca3cc736b7c0a0fe2b49a672a38400d";
 
@@ -66,8 +66,14 @@ var PostSchema = new Schema({
 	post: {type: String, required: true},
 	date: { type: Date, default: Date.now },
 	// postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-	comment: [{body: "string", by: "string"}]
+	comment: [{body: "string", by: "string"}],
+  likes: Number,
+  dislikes: Number
 });
+// PostSchema.methods.upvote = function(cb){
+//   this.upvotes += 1;
+//   this.save(cb);
+// }
 
 // var CommentSchema = new Schema({
 // 	comment: {type: String, required: true},
@@ -123,6 +129,7 @@ passport.use(new GitHubStrategy({
     }, function(err, user) {
       return done(err, user);
     });
+    console.log(User);
   }
 ));
 passport.serializeUser(function(user, done) {
@@ -148,20 +155,70 @@ app.get('/auth/github/callback',
 
 
 app.post('/comment', function(req, res) {
+  console.log('server accessed');
   Post.findOne({
     _id: req.body.postId
   }, function(err, post) {
     if (err) throw err;
-    console.log(post);
     post.comment.unshift({
       body: req.body.comment,
-      by: ""
+      by: "",
     });
     post.save();
     console.log("comment saved");
     res.status(200).end();
   });
 });
+
+app.put('/likes', function(req, res) {
+  Post.findOne({
+    _id: req.body.postId
+  }, function(err, likes) {
+    if (err) throw err;
+    likes.likes = req.body.likes;
+    likes.save(likes);
+    res.send(likes);
+    res.status(200).end();
+  });
+})
+
+app.put('/dislikes', function(req, res) {
+  Post.findOne({
+    _id: req.body.postId
+  }, function(err, dislikes) {
+    if (err) throw err;
+    dislikes.dislikes = req.body.dislikes;
+    dislikes.save(dislikes);
+    res.send(dislikes);
+    res.status(200).end();
+  });
+})
+// app.post('/post', function(req, res) {
+//   console.log('server accessed');
+//   Post.findOne({
+//     _id: req.body.postId
+//   }, function(err, post) {
+//     if (err) throw err;
+//     console.log(post + '= posts');
+//     console.log(req.body.likes + '= req.body');
+//     post.likes = req.body.likes;
+//     post.save();
+//     res.status(200).end();
+//   });
+// });
+// app.put('/likes', function(req, res) {
+//   console.log('server accessed');
+//   Post.findOne({
+//     _id: req.body.postId
+//   }, function(err, post) {
+//     if (err) throw err;
+//     post.likes({
+//       dislikes: req.body.likes
+//     });
+//     post.save();
+//     res.status(200).end();
+//   });
+// });
 
 
 // middleware
@@ -172,6 +229,7 @@ app.post('/comments', function(req, res) {
   }, function(err, post) {
     if (err) throw err;
     res.send(post);
+    res.status(200).end();
   });
 });
 
@@ -188,44 +246,14 @@ app.post('/post', function (req, res) {
 			res.status(200).end();
 			console.log("saved a new post");
 		});
-	// console.log("Body: "+req.body);
-	// if(!req.cookies.username){
-	// 	console.log("Cookies don't exist: "+req.cookies.username);
-	// 	//res.send('Please log in before posting');
-	// 	res.error();
-	// 	res.end();
-	// } else {
-	// 	console.log("Cookies exist: "+req.cookies.username);
-	// 	User.find({username: req.cookies.username})
-	// 		.then(function(user){
-	// 			if(!user){
-	// 				res.send('Please log in before posting');
-	// 			}
-	// 			else if(req.cookies.access_token !== user.usertoken){
-	// 				console.log("Invalid token");
-	// 				res.error();
-	// 				res.end();
-	// 			}
-	// 			req.body.username = req.cookies.username;
-	// 			console.log(req.body);
-	// 			Post
-	// 			  .create(req.body)
-	// 			  .then(function(post){
-	// 			  	res.send(post);
-	// 			  	//res.send('post added');
-	// 			  })
-	// 			  .catch(function (error) {
-	// 			    if (error) {
-	// 			      res.send(error);
-	// 			    }
-	// 			  });
+
 });
 
 
 app.get('/posts', function (req, res) {
   Post.find({}, function(err,posts){
   	if(err) throw err;
-  	console.log(posts);
+  	// console.log(posts);
   	res.send(posts);
   }).sort({date: -1});
 });

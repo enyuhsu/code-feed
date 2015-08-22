@@ -30,6 +30,13 @@
 .fa-github {
 	padding-right: 10px;
 }
+.votes {
+  display: inline-block;
+  padding: 0 5px;
+}
+.votes i {
+  padding-right: 5px;
+}
 .form-style-8 {
   font-family: 'Open Sans Condensed', arial, sans;
   width: 800px;
@@ -117,12 +124,14 @@
 
 #commentBox {
   resize: vertical;
-  width: 500px;
-  margin: 20px 80px 0;
+  width: 80%;
+  vertical-align: top;
+  height: 100px;
+  /*margin: 20px 80px 0;*/
 }
 
 #commentSubmitBtn {
-  margin: 20px 80px 5px;
+  margin: 20px 0 5px;
 }
 
 .comments {
@@ -131,16 +140,16 @@
   -moz-box-sizing: border-box;
   outline: none;
   display: block;
-  width: 1000px;
-  padding: 7px;
+  /*width: 1000px;*/
+  padding: 20px 20px 5px;
   border: none;
   border-bottom: 1px solid #ddd;
   background: transparent;
-  margin: 0 80px 10px;
+  /*margin: 0 80px 10px;*/
   font: 12px Arial, Helvetica, sans-serif;
-  height: 35px;
 }
 
 #commentHeader {
-  margin: 20px 80px;
+  margin: 20px 0 0;
+  font-weight: bold;
 }
