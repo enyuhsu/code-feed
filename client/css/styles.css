@@ -125,3 +125,22 @@
   margin: 20px 80px 5px;
 }
 
+.comments {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 1000px;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  margin: 0 80px 10px;
+  font: 12px Arial, Helvetica, sans-serif;
+  height: 35px;
+}
+
+#commentHeader {
+  margin: 20px 80px;
+}

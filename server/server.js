@@ -153,7 +153,7 @@ app.post('/comment', function(req, res) {
   }, function(err, post) {
     if (err) throw err;
     console.log(post);
-    post.comment.push({
+    post.comment.unshift({
       body: req.body.comment,
       by: ""
     });

@@ -24,7 +24,7 @@ angular
         console.log("here");
         $http.post('/comment', {postId: $stateParams.postId, comment: this.newComment}).success(function(data,status){
           console.log("comment saved");
-          that.post_msg.comment.push({body: that.newComment, by: ""});//newest post should immediatly be displated in the page
+          that.post_msg.comment.unshift({body: that.newComment, by: ""});//newest post should immediatly be displated in the page
           that.newComment = "";//clears the iput boxes
         });
       }

@@ -8,7 +8,9 @@
 	<input id="commentBox" type="text" placeholder="Comment Here" ng-model="commentCtrl.newComment" rows=8 cols=60></input> <br>
 	<input id="commentSubmitBtn" type="submit" id="submit" value="Submit" />
 </form>
-
-<div class="comments" ng-repeat="comment in commentCtrl.post_msg.comment">
-  {{comment.body}}
+<div>
+	<h4 id="commentHeader">Comments</h4>
+	<div class="comments" ng-repeat="comment in commentCtrl.post_msg.comment">
+  	{{comment.body}}
+  </div>
 </div>
