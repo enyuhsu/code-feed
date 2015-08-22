@@ -18,7 +18,7 @@ function LoginController($scope, $http, $login, $location) {
   }
 
   $scope.login = function() {
-    $http.post('/login').then(function(){
+    $http.post('/login').success(function(){
        document.cookie= "access_token = "+data;
        that.user.email = '';
        that.user.password = '';
