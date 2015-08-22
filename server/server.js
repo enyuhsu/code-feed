@@ -100,19 +100,11 @@ passport.use(new LocalStrategy(
   }
 ));
 
-app.post('/login',
-  passport.authenticate('local', {
-    failureRedirect: '/login'
-  }),
-  function(req, res) {
-    res.redirect('/');
-  });
-
 //github login
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "https://ancient-tundra-6889.herokuapp.com/"
+    callbackURL: "https://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({
@@ -134,9 +126,9 @@ app.get('/auth/github',
     scope: ['user:email']
   }));
 
-app.get('/auth/github/callback',
+app.get('https://ancient-tundra-6889.herokuapp.com/auth/github/callback',
   passport.authenticate('github', {
-    failureRedirect: '/login'
+    failureRedirect: '/oauth'
   }),
   function(req, res) {
     // Successful authentication, redirect home.

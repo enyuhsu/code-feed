@@ -7,9 +7,10 @@ angular
 LoginController.$inject = ['$scope', '$http', '$login', '$location'];
 
 function LoginController($scope, $http, $login, $location) {
-  this.user = {}
-
+  this.user = {};
   this.ghLogin = function() {
-    $location.path('/auth/github');
+    $http.get('/auth/github').then(function(){
+    	console.log("something");
+    });
   }
 }
