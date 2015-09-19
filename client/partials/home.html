@@ -1,7 +1,9 @@
 <div class="post" ng-repeat="post_msg in homeCtrl.posts">
 	<h4>{{post_msg.title}}</h4>
-	{{post_msg.post}} <br>
-	<a href={{post_msg.url}} target="_blank">{{post_msg.url}}</a> <br>
+	{{post_msg.post}}
+	<br>
+	<a href={{post_msg.url}} target="_blank">{{post_msg.url}}</a>
+	<br>
 	<a id="commentLink" href="/comments/{{post_msg._id}}">
 		<img id="commentBtn" />
 		<font color="black">
